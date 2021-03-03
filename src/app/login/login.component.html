@@ -1,1 +1,22 @@
-<p>login works!</p>
+<h1>Iniciar sesión</h1>
+
+<mat-card class="loginCard">
+    <mat-card-title>Iniciar sesión</mat-card-title>
+    <mat-card-subtitle>Inicia sesión para continuar</mat-card-subtitle>
+    <mat-card-content>
+        <form class="login-form">
+            <mat-form-field class="login-field">
+                <mat-label>Correo electrónico</mat-label>
+                <input matInput placeholder="example@example.com">
+            </mat-form-field>
+
+            <mat-form-field class="login-field">
+                <mat-label>Contraseña</mat-label>
+                <input matInput>
+            </mat-form-field>
+        </form>
+    </mat-card-content>
+    <mat-card-actions class="acciones">
+        <button mat-raised-button color="primary" (click)="clickLogin()">Iniciar sesión</button>
+    </mat-card-actions>
+</mat-card>

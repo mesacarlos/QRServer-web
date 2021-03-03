@@ -38,6 +38,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RegisterComponent } from './register/register.component';
 import { IndexComponent } from './index/index.component';
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
 	declarations: [
@@ -50,6 +51,7 @@ import { IndexComponent } from './index/index.component';
 		BrowserModule,
 		AppRoutingModule,
 		BrowserAnimationsModule,
+		HttpClientModule,
 		MatCheckboxModule,
 		MatCheckboxModule,
 		MatButtonModule,

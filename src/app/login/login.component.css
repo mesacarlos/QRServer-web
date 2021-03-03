@@ -1,0 +1,20 @@
+.loginCard {
+    max-width: 600px;
+    margin: auto;
+}
+
+.login-form {
+    min-width: 150px;
+    max-width: 600px;
+    width: 100%;
+}
+
+.login-field {
+    width: 90%;
+    padding: 1.5em;
+}
+
+.acciones {
+    text-align: right;
+    margin-right: 10px;
+}
