@@ -1,3 +1,35 @@
-<app-navbar></app-navbar>
+<mat-sidenav-container fxFlexFill class="mainContainer">
+    <mat-sidenav color="primary" #sidenav mode="over" opened="false" fxHide.gt-sm="true">
+        <mat-nav-list>
+            <a mat-list-item routerLink="/" (click)="sidenav.toggle()">
+                <mat-icon>home</mat-icon> <span class="nav-caption">Inicio</span>
+            </a>
+            <a mat-list-item routerLink="/login" (click)="sidenav.toggle()">
+                <mat-icon>login</mat-icon> <span class="nav-caption">Iniciar sesión</span>
+            </a>
+            <a mat-list-item routerLink="/register" (click)="sidenav.toggle()">
+                <mat-icon>person_add</mat-icon> <span class="nav-caption">Regístrate</span>
+            </a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content fxFlexFill>
+        <mat-toolbar color="primary" class="navbar">
+            <div fxShow="true" fxHide.gt-sm="true">
+                <button mat-icon-button (click)="sidenav.toggle()">
+					<mat-icon>menu</mat-icon>
+				</button>
+            </div>
+            <a routerLink="/" routerLinkActive="active" class="webTitle">TusCódigosQR</a>
 
-<router-outlet></router-outlet>
+            <!-- Inicio Spacer central -->
+            <span class="middle-spacer"></span>
+            <!-- Fin Spacer central -->
+
+            <div fxShow="true" fxHide.lt-md="true">
+                <a mat-button routerLink="/login">Iniciar sesión</a> &nbsp;
+                <a mat-raised-button routerLink="/register">Regístrate</a>
+            </div>
+        </mat-toolbar>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
