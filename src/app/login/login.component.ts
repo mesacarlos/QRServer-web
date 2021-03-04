@@ -42,11 +42,12 @@ export class LoginComponent implements OnInit {
 			localStorage.setItem("api_token", r.api_token);
 			//Redirección del usuario a /qrcodes
 		}, (err) => {
+			if (err.status == 401)
+				this.openSnackBar("Por favor, verifica tu cuenta para iniciar sesión. Hemos reenviado un mail a tu dirección de correo electrónico con mas información.", "Cerrar");
 			if (err.status == 403)
 				this.openSnackBar("Dirección de email o contraseña incorrectas", "Cerrar");
 			console.log("Login error:", err)
 		});
-		console.log(localStorage.api_token)
 		return false;
 	}
 

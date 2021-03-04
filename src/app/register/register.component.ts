@@ -50,7 +50,6 @@ export class RegisterComponent implements OnInit {
 
 		//Fields OK, go login
 		this.authService.register(this.usernameFormControl.value, this.emailFormControl.value, this.passwordFormControl.value).subscribe(r => {
-			console.log()
 			this.router.navigate(['verify-email']);
 		}, (err) => {
 			if(err.error.email)

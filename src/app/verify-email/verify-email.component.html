@@ -1,2 +1,13 @@
-<h1>Verifica tu cuenta</h1>
-<p>Hemos enviado un correo electrónico a tu dirección de e-mail con un enlace para verificar tu cuenta. Por favor, haz click en dicho enlace para continuar con tu registro.</p>
+<ng-container *ngIf="!isTokenSet; else toVerify">
+    <h1>Verifica tu cuenta</h1>
+    <p>
+        Hemos enviado un correo electrónico a tu dirección de e-mail con un enlace para verificar tu cuenta. Por favor, haz click en dicho enlace para continuar con tu registro.
+    </p>
+</ng-container>
+<ng-template #toVerify>
+    <h1>Verificando tu cuenta</h1>
+    <div class="centered">
+        <mat-spinner class="centered"></mat-spinner>
+        <p class="text-centered">Verificando tu cuenta. Por favor, espera.</p>
+    </div>
+</ng-template>
