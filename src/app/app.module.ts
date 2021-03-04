@@ -39,19 +39,23 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { RegisterComponent } from './register/register.component';
 import { IndexComponent } from './index/index.component';
 import { HttpClientModule } from "@angular/common/http";
+import { ReactiveFormsModule } from '@angular/forms';
+import { VerifyEmailComponent } from './verify-email/verify-email.component';
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		LoginComponent,
 		RegisterComponent,
-		IndexComponent
+		IndexComponent,
+		VerifyEmailComponent
 	],
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
 		BrowserAnimationsModule,
 		HttpClientModule,
+		ReactiveFormsModule,
 		MatCheckboxModule,
 		MatCheckboxModule,
 		MatButtonModule,

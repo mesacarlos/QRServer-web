@@ -1,0 +1,20 @@
+.registerCard {
+    max-width: 600px;
+    margin: auto;
+}
+
+.register-form {
+    min-width: 150px;
+    max-width: 600px;
+    width: 100%;
+}
+
+.register-field {
+    width: 95%;
+    padding: 0.7em;
+}
+
+.acciones {
+    text-align: right;
+    margin-right: 10px;
+}
