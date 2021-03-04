@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { AuthService } from '../core/service/auth.service';
+import { SessionService } from '../core/service/session.service';
 
 export class LoginErrorStateMatcher implements ErrorStateMatcher {
 	isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -19,7 +21,9 @@ export class LoginErrorStateMatcher implements ErrorStateMatcher {
 export class LoginComponent implements OnInit {
 	constructor(
 		private authService: AuthService,
-		private _snackBar: MatSnackBar
+		private sessService: SessionService,
+		private _snackBar: MatSnackBar,
+		private router: Router
 	) { }
 	ngOnInit(): void { }
 
@@ -39,8 +43,8 @@ export class LoginComponent implements OnInit {
 
 		//Fields OK, go login
 		this.authService.login(this.emailFormControl.value, this.passwordFormControl.value).subscribe(r => {
-			localStorage.setItem("api_token", r.api_token);
-			//Redirección del usuario a /qrcodes
+			this.sessService.startSession(r.api_token);
+			this.router.navigate(['qrcodes']);
 		}, (err) => {
 			if (err.status == 401)
 				this.openSnackBar("Por favor, verifica tu cuenta para iniciar sesión. Hemos reenviado un mail a tu dirección de correo electrónico con mas información.", "Cerrar");

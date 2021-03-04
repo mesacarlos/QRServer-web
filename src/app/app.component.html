@@ -26,8 +26,15 @@
             <!-- Fin Spacer central -->
 
             <div fxShow="true" fxHide.lt-md="true">
-                <a mat-button routerLink="/login">Iniciar sesión</a> &nbsp;
+                <a mat-button routerLink="/login">Iniciar sesión</a>
                 <a mat-raised-button routerLink="/register">Regístrate</a>
+            </div>
+            <div fxShow="true" fxHide.lt-md="true">
+                <a mat-button routerLink="/qrcodes">Tus códigos QR</a>
+                <a mat-button routerLink="/logout">Cerrar sesión</a>
+                <a mat-icon-button aria-label="Your account" routerLink="/account">
+                    <mat-icon>account_circle</mat-icon>
+                </a>
             </div>
         </mat-toolbar>
         <div class="container">

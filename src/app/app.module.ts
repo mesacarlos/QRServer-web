@@ -41,6 +41,8 @@ import { IndexComponent } from './index/index.component';
 import { HttpClientModule } from "@angular/common/http";
 import { ReactiveFormsModule } from '@angular/forms';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
+import { QrCodesListComponent } from './qr-codes-list/qr-codes-list.component';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
 	declarations: [
@@ -48,7 +50,9 @@ import { VerifyEmailComponent } from './verify-email/verify-email.component';
 		LoginComponent,
 		RegisterComponent,
 		IndexComponent,
-		VerifyEmailComponent
+		VerifyEmailComponent,
+		QrCodesListComponent,
+		LogoutComponent
 	],
 	imports: [
 		BrowserModule,

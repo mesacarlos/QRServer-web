@@ -6,4 +6,5 @@ export interface User {
 	is_admin: boolean;
 	created_at: Date;
 	updated_at: Date;
+	api_token?: string;
 }
