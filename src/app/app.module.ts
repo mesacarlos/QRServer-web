@@ -43,6 +43,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { QrCodesListComponent } from './qr-codes-list/qr-codes-list.component';
 import { LogoutComponent } from './logout/logout.component';
+import { InfoDialogComponent } from './info-dialog/info-dialog.component';
+import { LoggedInGuard } from './core/util/LoggedInGuard';
+import { NotLoggedInGuard } from './core/util/NotLoggedInGuard';
 
 @NgModule({
 	declarations: [
@@ -52,7 +55,8 @@ import { LogoutComponent } from './logout/logout.component';
 		IndexComponent,
 		VerifyEmailComponent,
 		QrCodesListComponent,
-		LogoutComponent
+		LogoutComponent,
+		InfoDialogComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -93,7 +97,7 @@ import { LogoutComponent } from './logout/logout.component';
 		MatPaginatorModule,
 		FlexLayoutModule,
 	],
-	providers: [],
+	providers: [LoggedInGuard, NotLoggedInGuard],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }

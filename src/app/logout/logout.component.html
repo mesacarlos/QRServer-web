@@ -1,1 +1,11 @@
-<p>logout works!</p>
+<ng-container *ngIf="!sessService.lastIsLoggedInResponse; else loggingOut">
+    <h1>Cerrar sesión</h1>
+    <p>Tu sesión se ha cerrado completamente en este navegador.</p>
+</ng-container>
+<ng-template #loggingOut>
+    <h1>Cerrar sesión</h1>
+    <div class="centered">
+        <mat-spinner class="centered"></mat-spinner>
+        <p class="text-centered">Cerrando sesión. Por favor, espera.</p>
+    </div>
+</ng-template>

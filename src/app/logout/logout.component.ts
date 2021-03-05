@@ -1,15 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, OnInit } from '@angular/core';
+import { SessionService } from '../core/service/session.service';
 
 @Component({
-  selector: 'app-logout',
-  templateUrl: './logout.component.html',
-  styleUrls: ['./logout.component.css']
+	selector: 'app-logout',
+	templateUrl: './logout.component.html',
+	styleUrls: ['./logout.component.css']
 })
-export class LogoutComponent implements OnInit {
+export class LogoutComponent implements AfterViewChecked {
 
-  constructor() { }
+	constructor(
+		public sessService: SessionService,
+	) { }
 
-  ngOnInit(): void {
-  }
+	ngAfterViewChecked(): void {
+		setTimeout(()=> {
+			this.sessService.logOut();
+		}, 100);
+	}
 
 }

@@ -1,6 +1,20 @@
 <mat-sidenav-container fxFlexFill class="mainContainer">
     <mat-sidenav color="primary" #sidenav mode="over" opened="false" fxHide.gt-sm="true">
-        <mat-nav-list>
+        <mat-nav-list *ngIf="sessService.lastIsLoggedInResponse">
+            <a mat-list-item routerLink="/" (click)="sidenav.toggle()">
+                <mat-icon>home</mat-icon> <span class="nav-caption">Inicio</span>
+            </a>
+            <a mat-list-item routerLink="/qrcodes" (click)="sidenav.toggle()">
+                <mat-icon>qr_code</mat-icon> <span class="nav-caption">Tus códigos QR</span>
+            </a>
+            <a mat-list-item routerLink="/account" (click)="sidenav.toggle()">
+                <mat-icon>account_box</mat-icon> <span class="nav-caption">Cuenta</span>
+            </a>
+            <a mat-list-item routerLink="/logout" (click)="sidenav.toggle()">
+                <mat-icon>logout</mat-icon> <span class="nav-caption">Cerrar sesión</span>
+            </a>
+        </mat-nav-list>
+        <mat-nav-list *ngIf="!sessService.lastIsLoggedInResponse">
             <a mat-list-item routerLink="/" (click)="sidenav.toggle()">
                 <mat-icon>home</mat-icon> <span class="nav-caption">Inicio</span>
             </a>
@@ -20,21 +34,20 @@
 				</button>
             </div>
             <a routerLink="/" routerLinkActive="active" class="webTitle">TusCódigosQR</a>
+            <div fxShow="true" fxHide.lt-md="true" *ngIf="sessService.lastIsLoggedInResponse">
+                &nbsp; &nbsp; &nbsp;
+                <a mat-button routerLink="/qrcodes">Tus códigos QR</a>
+                <a mat-button routerLink="/account">Cuenta</a>
+                <a mat-button routerLink="/logout">Cerrar sesión</a>
+            </div>
 
             <!-- Inicio Spacer central -->
             <span class="middle-spacer"></span>
             <!-- Fin Spacer central -->
 
-            <div fxShow="true" fxHide.lt-md="true">
+            <div fxShow="true" fxHide.lt-md="true" *ngIf="!sessService.lastIsLoggedInResponse">
                 <a mat-button routerLink="/login">Iniciar sesión</a>
                 <a mat-raised-button routerLink="/register">Regístrate</a>
-            </div>
-            <div fxShow="true" fxHide.lt-md="true">
-                <a mat-button routerLink="/qrcodes">Tus códigos QR</a>
-                <a mat-button routerLink="/logout">Cerrar sesión</a>
-                <a mat-icon-button aria-label="Your account" routerLink="/account">
-                    <mat-icon>account_circle</mat-icon>
-                </a>
             </div>
         </mat-toolbar>
         <div class="container">

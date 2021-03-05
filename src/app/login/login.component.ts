@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from '../core/service/auth.service';
 import { SessionService } from '../core/service/session.service';
+import { InfoDialogComponent } from '../info-dialog/info-dialog.component';
 
 export class LoginErrorStateMatcher implements ErrorStateMatcher {
 	isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -23,6 +25,7 @@ export class LoginComponent implements OnInit {
 		private authService: AuthService,
 		private sessService: SessionService,
 		private _snackBar: MatSnackBar,
+		public dialog: MatDialog,
 		private router: Router
 	) { }
 	ngOnInit(): void { }
@@ -42,16 +45,33 @@ export class LoginComponent implements OnInit {
 			return false;
 
 		//Fields OK, go login
-		this.authService.login(this.emailFormControl.value, this.passwordFormControl.value).subscribe(r => {
-			this.sessService.startSession(r.api_token);
-			this.router.navigate(['qrcodes']);
-		}, (err) => {
-			if (err.status == 401)
-				this.openSnackBar("Por favor, verifica tu cuenta para iniciar sesión. Hemos reenviado un mail a tu dirección de correo electrónico con mas información.", "Cerrar");
-			if (err.status == 403)
-				this.openSnackBar("Dirección de email o contraseña incorrectas", "Cerrar");
-			console.log("Login error:", err)
+		this.dialog.open(InfoDialogComponent, {
+			width: '250px',
+			data: { loading: true }
 		});
+		this.authService.login(this.emailFormControl.value, this.passwordFormControl.value).subscribe({
+			next: (r) => {
+				this.dialog.closeAll();
+				this.sessService.startSession(r.api_token).subscribe({
+					next: (r) => {
+						this.router.navigate(['qrcodes']);
+					},
+					error: (err) => {
+						this.openSnackBar("Error al crear la sesión.", "Cerrar");
+						console.log("Error al crear sesion: ", err);
+					}
+				})
+			},
+			error: (err) => {
+				this.dialog.closeAll();
+				if (err.status == 401)
+					this.openSnackBar("Por favor, verifica tu cuenta para iniciar sesión. Hemos reenviado un mail a tu dirección de correo electrónico con mas información.", "Cerrar");
+				if (err.status == 403)
+					this.openSnackBar("Dirección de email o contraseña incorrectas", "Cerrar");
+				console.log("Login error:", err)
+			}
+		});
+
 		return false;
 	}
 

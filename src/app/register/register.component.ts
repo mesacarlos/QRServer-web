@@ -1,10 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from '../core/service/auth.service';
+import { InfoDialogComponent } from '../info-dialog/info-dialog.component';
 
 export class RegisterErrorStateMatcher implements ErrorStateMatcher {
 	isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -22,9 +24,11 @@ export class RegisterComponent implements OnInit {
 	constructor(
 		private authService: AuthService,
 		private _snackBar: MatSnackBar,
+		public dialog: MatDialog,
 		private router: Router
 	) { }
-	ngOnInit(): void { }
+	ngOnInit(): void {
+	}
 
 	matcher = new RegisterErrorStateMatcher();
 	usernameFormControl = new FormControl('', [
@@ -45,18 +49,33 @@ export class RegisterComponent implements OnInit {
 	]);
 
 	clickRegister() {
-		if (this.emailFormControl.errors != null || this.passwordFormControl.errors != null)
-			return false;
+		if (this.usernameFormControl.errors != null || this.emailFormControl.errors != null
+			|| this.passwordFormControl.errors != null || this.passwordConfirmFormControl.errors != null)
+			return false; //Hay errores en el formulario
 
-		//Fields OK, go login
-		this.authService.register(this.usernameFormControl.value, this.emailFormControl.value, this.passwordFormControl.value).subscribe(r => {
-			this.router.navigate(['verify-email']);
-		}, (err) => {
-			if(err.error.email)
-				this.openSnackBar("Error: Ya existe una cuenta con la dirección de email indicada", "Cerrar");
-			else
-				this.openSnackBar("Error: " + err.message, "Cerrar");
-			console.log(err)
+		if (this.passwordFormControl.value != this.passwordConfirmFormControl.value) {
+			this.openSnackBar("Error: Las contraseñas no coinciden", "Cerrar");
+			return false; //Las cntraseñas no coinciden
+		}
+
+		//Fields OK, register
+		this.dialog.open(InfoDialogComponent, {
+			width: '250px',
+			data: { loading: true }
+		});
+		this.authService.register(this.usernameFormControl.value, this.emailFormControl.value, this.passwordFormControl.value).subscribe({
+			next: (r) => {
+				this.dialog.closeAll();
+				this.router.navigate(['verify-email']);
+			},
+			error: (err) => {
+				this.dialog.closeAll();
+				if (err.error.email)
+					this.openSnackBar("Error: Ya existe una cuenta con la dirección de email indicada", "Cerrar");
+				else
+					this.openSnackBar("Error: " + err.message, "Cerrar");
+				console.log(err)
+			}
 		});
 		return false;
 	}

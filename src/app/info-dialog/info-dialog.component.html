@@ -1,0 +1,19 @@
+<ng-container *ngIf="data.loading">
+    <h1 mat-dialog-title>Por favor, espera</h1>
+    <div mat-dialog-content>
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        <p>Cargando...</p>
+    </div>
+    <div mat-dialog-actions *ngIf="data.info">
+        <button mat-button (click)="onNoClick()">Cerrar</button>
+    </div>
+</ng-container>
+<ng-container *ngIf="data.info">
+    <h1 mat-dialog-title>{{ data.title }}</h1>
+    <div mat-dialog-content>
+        <p>{{ data.info }}</p>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="onNoClick()">Cerrar</button>
+    </div>
+</ng-container>
