@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../core/service/auth.service';
+import { openSnackBar } from '../core/util/snackBarUtils';
 
 @Component({
 	selector: 'app-verify-email',
@@ -29,22 +30,15 @@ export class VerifyEmailComponent implements OnInit {
 		this.authService.verifyEmail(id).subscribe({
 			next: (r) => {
 				console.log("Account verify (true=success, false=problems): ", r);
-				this.openSnackBar("Éxito! Ahora puedes iniciar sesión en tu cuenta. Gracias por completar tu registro.", "Cerrar");
+				openSnackBar(this._snackBar, "Éxito! Ahora puedes iniciar sesión en tu cuenta. Gracias por completar tu registro.", "Cerrar", 20000);
 				this.router.navigate(['login']);
 			},
 			error: (err) => {
 				if (err.status == 403)
-					this.openSnackBar("Ocurrió un error. Tu cuenta ya fue verificada, el Token indicado no existe, no existe ningún usuario vinculado a este token o el email del usuario fué modificado.", "Cerrar");
+					openSnackBar(this._snackBar, "Ocurrió un error. Tu cuenta ya fue verificada, el Token indicado no existe, no existe ningún usuario vinculado a este token o el email del usuario fué modificado.", "Cerrar", 20000);
 				this.router.navigate(['/']);
 				console.log("Email verification error:", err)
 			}
-		});
-	}
-
-	openSnackBar(message: string, action: string) {
-		this._snackBar.open(message, action, {
-			duration: 100000,
-			horizontalPosition: 'right',
 		});
 	}
 

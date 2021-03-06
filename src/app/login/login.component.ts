@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../core/service/auth.service';
 import { SessionService } from '../core/service/session.service';
 import { FormErrorStateMatcher } from '../core/util/FormErrorStateMatcher';
+import { openSnackBar } from '../core/util/snackBarUtils';
 import { InfoDialogComponent } from '../info-dialog/info-dialog.component';
 
 @Component({
@@ -52,7 +53,7 @@ export class LoginComponent implements OnInit {
 						this.router.navigate(['qrcodes']);
 					},
 					error: (err) => {
-						this.openSnackBar("Error al crear la sesión.", "Cerrar");
+						openSnackBar(this._snackBar, "Error al crear la sesión.", "Cerrar", 20000);
 						console.log("Error al crear sesion: ", err);
 					}
 				})
@@ -60,21 +61,14 @@ export class LoginComponent implements OnInit {
 			error: (err) => {
 				this.dialog.closeAll();
 				if (err.status == 401)
-					this.openSnackBar("Por favor, verifica tu cuenta para iniciar sesión. Hemos reenviado un mail a tu dirección de correo electrónico con mas información.", "Cerrar");
+					openSnackBar(this._snackBar, "Por favor, verifica tu cuenta para iniciar sesión. Hemos reenviado un mail a tu dirección de correo electrónico con mas información.", "Cerrar", 20000);
 				if (err.status == 403)
-					this.openSnackBar("Dirección de email o contraseña incorrectas", "Cerrar");
+					openSnackBar(this._snackBar, "Dirección de email o contraseña incorrectas", "Cerrar", 20000);
 				console.log("Login error:", err)
 			}
 		});
 
 		return false;
-	}
-
-	openSnackBar(message: string, action: string) {
-		this._snackBar.open(message, action, {
-			duration: 20000,
-			horizontalPosition: 'right',
-		});
 	}
 
 }

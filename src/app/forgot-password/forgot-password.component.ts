@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../core/service/auth.service';
 import { FormErrorStateMatcher } from '../core/util/FormErrorStateMatcher';
+import { openSnackBar } from '../core/util/snackBarUtils';
 import { InfoDialogComponent } from '../info-dialog/info-dialog.component';
 
 @Component({
@@ -55,12 +56,12 @@ export class ForgotPasswordComponent implements OnInit {
 		this.authService.forgotPasswordSend(this.emailFormControl.value).subscribe({
 			next: (r) => {
 				this.dialog.closeAll();
-				this.openSnackBar("¡Hecho! Si existe alguna cuenta registrada con dicho email, recibirás un correo con mas información.", "Cerrar");
+				openSnackBar(this._snackBar, "¡Hecho! Si existe alguna cuenta registrada con dicho email, recibirás un correo con mas información.", "Cerrar", 20000);
 			},
 			error: (err) => {
 				this.dialog.closeAll();
 				//Nunca deberia de entrar aqui... solo se devuelve true....
-				this.openSnackBar("Error: " + err.message, "Cerrar");
+				openSnackBar(this._snackBar, "Error: " + err.message, "Cerrar", 20000);
 			}
 		});
 		return false;
@@ -71,7 +72,7 @@ export class ForgotPasswordComponent implements OnInit {
 			return false;
 
 		if (this.passwordFormControl.value != this.passwordConfirmFormControl.value) {
-			this.openSnackBar("Error: Las contraseñas no coinciden", "Cerrar");
+			openSnackBar(this._snackBar, "Error: Las contraseñas no coinciden", "Cerrar", 20000);
 			return false; //Las cnotraseñas no coinciden
 		}
 
@@ -83,24 +84,17 @@ export class ForgotPasswordComponent implements OnInit {
 		this.authService.forgotPasswordVerify(this.tokenId, this.passwordFormControl.value).subscribe({
 			next: (r) => {
 				this.dialog.closeAll();
-				this.openSnackBar("¡Exito! Ahora puedes iniciar sesión", "Cerrar");
+				openSnackBar(this._snackBar, "¡Exito! Ahora puedes iniciar sesión", "Cerrar", 20000);
 				this.router.navigate(['login']);
 			},
 			error: (err) => {
 				if (err.status == 403)
-					this.openSnackBar("Error: No existe ningún token con el valor indicado, o el usuario no existe", "Cerrar");
+					openSnackBar(this._snackBar, "Error: No existe ningún token con el valor indicado, o el usuario no existe", "Cerrar", 20000);
 				console.log("API returned error:", err)
 			}
 		})
 		//TODO recoger el id del this. y las dos nuevas pwd del form. Si no coinciden error. Si coinciden enviar peticion cambiar pwd. Si exito redireccion a login
 		return false;
-	}
-
-	openSnackBar(message: string, action: string) {
-		this._snackBar.open(message, action, {
-			duration: 100000,
-			horizontalPosition: 'right',
-		});
 	}
 
 }

@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from '../core/service/auth.service';
 import { FormErrorStateMatcher } from '../core/util/FormErrorStateMatcher';
+import { openSnackBar } from '../core/util/snackBarUtils';
 import { InfoDialogComponent } from '../info-dialog/info-dialog.component';
 
 @Component({
@@ -48,7 +49,7 @@ export class RegisterComponent implements OnInit {
 			return false; //Hay errores en el formulario
 
 		if (this.passwordFormControl.value != this.passwordConfirmFormControl.value) {
-			this.openSnackBar("Error: Las contraseñas no coinciden", "Cerrar");
+			openSnackBar(this._snackBar, "Error: Las contraseñas no coinciden", "Cerrar", 20000);
 			return false; //Las cntraseñas no coinciden
 		}
 
@@ -65,20 +66,13 @@ export class RegisterComponent implements OnInit {
 			error: (err) => {
 				this.dialog.closeAll();
 				if (err.error.email)
-					this.openSnackBar("Error: Ya existe una cuenta con la dirección de email indicada", "Cerrar");
+					openSnackBar(this._snackBar, "Error: Ya existe una cuenta con la dirección de email indicada", "Cerrar", 20000);
 				else
-					this.openSnackBar("Error: " + err.message, "Cerrar");
+					openSnackBar(this._snackBar, "Error: " + err.message, "Cerrar", 20000);
 				console.log(err)
 			}
 		});
 		return false;
-	}
-
-	openSnackBar(message: string, action: string) {
-		this._snackBar.open(message, action, {
-			duration: 20000,
-			horizontalPosition: 'right',
-		});
 	}
 
 }

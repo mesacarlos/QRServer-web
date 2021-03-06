@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AccountComponent } from './account/account.component';
 import { LoggedInGuard } from './core/util/LoggedInGuard';
 import { NotLoggedInGuard } from './core/util/NotLoggedInGuard';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
@@ -19,6 +20,7 @@ const routes: Routes = [
 	{ path: 'forgot-password', component: ForgotPasswordComponent, canActivate: [NotLoggedInGuard] },
 	{ path: 'forgot-password/:id', component: ForgotPasswordComponent, canActivate: [NotLoggedInGuard] },
 	{ path: 'logout', component: LogoutComponent },
+	{ path: 'account', component: AccountComponent, canActivate: [LoggedInGuard] },
 	{ path: 'qrcodes', component: QrCodesListComponent, canActivate: [LoggedInGuard] },
 	//TODO pagina de 404
 ];

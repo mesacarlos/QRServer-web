@@ -34,7 +34,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RegisterComponent } from './register/register.component';
 import { IndexComponent } from './index/index.component';
@@ -47,6 +47,8 @@ import { InfoDialogComponent } from './info-dialog/info-dialog.component';
 import { LoggedInGuard } from './core/util/LoggedInGuard';
 import { NotLoggedInGuard } from './core/util/NotLoggedInGuard';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { AccountComponent } from './account/account.component';
+import { getSpanishPaginatorIntl } from './core/util/SpanishPaginatorIntl';
 
 @NgModule({
 	declarations: [
@@ -59,6 +61,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 		LogoutComponent,
 		InfoDialogComponent,
 		ForgotPasswordComponent,
+		AccountComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -99,7 +102,11 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 		MatPaginatorModule,
 		FlexLayoutModule,
 	],
-	providers: [LoggedInGuard, NotLoggedInGuard],
+	providers: [
+		LoggedInGuard,
+		NotLoggedInGuard,
+		{ provide: MatPaginatorIntl, useValue: getSpanishPaginatorIntl() }
+	],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }
