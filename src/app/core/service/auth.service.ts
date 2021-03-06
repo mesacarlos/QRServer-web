@@ -35,9 +35,28 @@ export class AuthService {
 		});
 	}
 
-	public verifyEmail(idToken: string) {
+	public verifyEmail(idToken: string): Observable<boolean> {
 		let jsonHeader = new HttpHeaders().set('Content-Type', 'aplication/json');
 		return this.http.post<boolean>(this.env.API_BASE_URL + "/emailverify/" + idToken, {}, {
+			headers: jsonHeader
+		});
+	}
+
+	public forgotPasswordSend(email: string): Observable<boolean>{
+		let jsonHeader = new HttpHeaders().set('Content-Type', 'aplication/json');
+		return this.http.post<boolean>(this.env.API_BASE_URL + "/forgotpassword/sendtoken", {
+			"email": email,
+		}, {
+			headers: jsonHeader
+		});
+	}
+
+	public forgotPasswordVerify(idToken: string, newPassword: string): Observable<boolean>{
+		let jsonHeader = new HttpHeaders().set('Content-Type', 'aplication/json');
+		return this.http.post<boolean>(this.env.API_BASE_URL + "/forgotpassword/verify", {
+			"id": idToken,
+			"password": newPassword,
+		}, {
 			headers: jsonHeader
 		});
 	}

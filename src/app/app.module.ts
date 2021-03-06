@@ -46,6 +46,7 @@ import { LogoutComponent } from './logout/logout.component';
 import { InfoDialogComponent } from './info-dialog/info-dialog.component';
 import { LoggedInGuard } from './core/util/LoggedInGuard';
 import { NotLoggedInGuard } from './core/util/NotLoggedInGuard';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 @NgModule({
 	declarations: [
@@ -57,6 +58,7 @@ import { NotLoggedInGuard } from './core/util/NotLoggedInGuard';
 		QrCodesListComponent,
 		LogoutComponent,
 		InfoDialogComponent,
+		ForgotPasswordComponent,
 	],
 	imports: [
 		BrowserModule,

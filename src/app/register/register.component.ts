@@ -6,14 +6,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from '../core/service/auth.service';
+import { FormErrorStateMatcher } from '../core/util/FormErrorStateMatcher';
 import { InfoDialogComponent } from '../info-dialog/info-dialog.component';
-
-export class RegisterErrorStateMatcher implements ErrorStateMatcher {
-	isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-		const isSubmitted = form && form.submitted;
-		return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-	}
-}
 
 @Component({
 	selector: 'app-register',
@@ -30,7 +24,7 @@ export class RegisterComponent implements OnInit {
 	ngOnInit(): void {
 	}
 
-	matcher = new RegisterErrorStateMatcher();
+	matcher = new FormErrorStateMatcher();
 	usernameFormControl = new FormControl('', [
 		Validators.required,
 		Validators.maxLength(24),

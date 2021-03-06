@@ -27,7 +27,9 @@
 
         </mat-card-content>
         <mat-card-actions class="acciones">
-            <button mat-raised-button color="primary" type="submit">Iniciar sesión</button>
+            <a mat-stroked-button routerLink="/forgot-password">
+                <mat-icon aria-hidden="false" aria-label="Forgot password">restart_alt</mat-icon> Olvidé mi contraseña</a>
+            <button mat-raised-button color="primary" type="submit"><mat-icon aria-hidden="false" aria-label="Forgot password">login</mat-icon> Iniciar sesión</button>
         </mat-card-actions>
     </mat-card>
 </form>

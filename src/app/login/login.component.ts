@@ -6,14 +6,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from '../core/service/auth.service';
 import { SessionService } from '../core/service/session.service';
+import { FormErrorStateMatcher } from '../core/util/FormErrorStateMatcher';
 import { InfoDialogComponent } from '../info-dialog/info-dialog.component';
-
-export class LoginErrorStateMatcher implements ErrorStateMatcher {
-	isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-		const isSubmitted = form && form.submitted;
-		return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-	}
-}
 
 @Component({
 	selector: 'app-login',
@@ -30,7 +24,7 @@ export class LoginComponent implements OnInit {
 	) { }
 	ngOnInit(): void { }
 
-	matcher = new LoginErrorStateMatcher();
+	matcher = new FormErrorStateMatcher();
 	emailFormControl = new FormControl('', [
 		Validators.required,
 		Validators.email,
@@ -54,6 +48,7 @@ export class LoginComponent implements OnInit {
 				this.dialog.closeAll();
 				this.sessService.startSession(r.api_token).subscribe({
 					next: (r) => {
+						this._snackBar.dismiss();
 						this.router.navigate(['qrcodes']);
 					},
 					error: (err) => {
