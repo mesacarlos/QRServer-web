@@ -1,7 +1,25 @@
 <h1>Mi cuenta</h1>
 <mat-tab-group mat-align-tabs="start" [(selectedIndex)]="currentTabIndex">
     <mat-tab label="Mis datos">
-        Info de mi cuenta
+        <div class="container">
+            <mat-card>
+                <mat-card-title>Mi cuenta</mat-card-title>
+                <mat-card-content>
+                    <div>
+                        <img src="https://fonts.gstatic.com/s/i/materialicons/account_box/v10/24px.svg" class="avatarImage mainInfo" alt="Avatar">
+                        <div class="mainInfo">
+                            <h3>{{ userObj?.username }}</h3>
+                            <p>{{ userObj?.email }}</p>
+                        </div>
+                    </div>
+
+                    <p *ngIf="userObj?.verified_email">Cuenta verificada</p>
+                    <p *ngIf="!userObj?.verified_email">Cuenta NO verificada!</p>
+                    <p>Cuenta creada el: {{ userCreatedDate?.toLocaleDateString() }} a las {{ userCreatedDate?.toLocaleTimeString() }}</p>
+                    <p>Última actualización: {{ userUpdatedDate?.toLocaleDateString() }} a las {{ userUpdatedDate?.toLocaleTimeString() }}</p>
+                </mat-card-content>
+            </mat-card>
+        </div>
     </mat-tab>
 
     <mat-tab label="Editar mi cuenta">

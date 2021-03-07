@@ -3,6 +3,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { User } from '../core/model/user.model';
 import { SessionService } from '../core/service/session.service';
 import { UserService } from '../core/service/user.service';
 import { FormErrorStateMatcher } from '../core/util/FormErrorStateMatcher';
@@ -16,6 +17,10 @@ import { InfoDialogComponent } from '../info-dialog/info-dialog.component';
 })
 export class AccountComponent implements OnInit {
 	currentTabIndex: number = 0;
+	userObj: User;
+	userCreatedDate: Date;
+	userUpdatedDate: Date;
+
 	constructor(
 		private userService: UserService,
 		private sessService: SessionService,
@@ -24,6 +29,22 @@ export class AccountComponent implements OnInit {
 		private router: Router
 	) { }
 	ngOnInit(): void {
+		this.dialog.open(InfoDialogComponent, {
+			width: '250px',
+			data: { loading: true }
+		});
+		this.userService.getLoggedUser().subscribe({
+			next: (r: User) => {
+				this.dialog.closeAll();
+				this.userObj = r;
+				this.userCreatedDate = new Date(this.userObj?.created_at);
+				this.userUpdatedDate = new Date(this.userObj?.updated_at);
+				console.log(r);
+			},
+			error: (err) => {
+				openSnackBar(this._snackBar, "Error obteniendo datos del servidor: " + err.message, "Cerrar", 10000);
+			}
+		});
 	}
 
 	matcher = new FormErrorStateMatcher();
