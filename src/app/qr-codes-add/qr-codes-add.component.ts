@@ -46,11 +46,10 @@ export class QrCodesAddComponent implements OnInit {
 				this.dialogRef.close();
 				if (err.status == 422) {
 					if (err.error.id)
-						openSnackBar(this._snackBar, "Error: El ID ya existe o usa caracteres no permitidos", "Cerrar", 20000);
+						openSnackBar(this._snackBar, "Error: El ID ya existe o usa caracteres no permitidos", "Cerrar", 20000, 'center', 'bottom');
 				} else {
 					openSnackBar(this._snackBar, "Error al crear código QR", "Cerrar", 20000);
 				}
-				//TODO controlar todos los errores
 				console.log("Error creating QR Code:", err);
 			}
 		});
