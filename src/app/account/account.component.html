@@ -1,1 +1,86 @@
-<p>account works!</p>
+<h1>Mi cuenta</h1>
+<mat-tab-group mat-align-tabs="start" [(selectedIndex)]="currentTabIndex">
+    <mat-tab label="Mis datos">
+        Info de mi cuenta
+    </mat-tab>
+
+    <mat-tab label="Editar mi cuenta">
+        <div class="container">
+            <form class="formCard" (submit)="clickEditAccount()">
+                <mat-card>
+                    <mat-card-title>Actualiza tu cuenta</mat-card-title>
+                    <mat-card-subtitle>Rellena únicamente los campos que desees actualizar</mat-card-subtitle>
+                    <mat-card-content>
+
+                        <mat-form-field class="form-field">
+                            <mat-label>Nombre de usuario</mat-label>
+                            <input matInput type="text" autocomplete="off" [formControl]="usernameEditFormControl" [errorStateMatcher]="matcher">
+                            <mat-error *ngIf="usernameEditFormControl.hasError('email')">
+                                Introduce un nombre de usuario valido
+                            </mat-error>
+                            <mat-error *ngIf="usernameEditFormControl.hasError('maxlength')">
+                                Límite de 24 caracteres
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="form-field">
+                            <mat-label>Correo electrónico</mat-label>
+                            <input matInput placeholder="example@example.com" type="email" autocomplete="off" [formControl]="emailEditFormControl" [errorStateMatcher]="matcher">
+                            <mat-error *ngIf="emailEditFormControl.hasError('email')">
+                                Introduce una dirección de email válida
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="form-field">
+                            <mat-label>Contraseña</mat-label>
+                            <input matInput type="password" [formControl]="passwordEditFormControl" [errorStateMatcher]="matcher">
+                        </mat-form-field>
+
+                        <mat-form-field class="form-field">
+                            <mat-label>Repite la contraseña</mat-label>
+                            <input matInput type="password" [formControl]="passwordConfirmEditFormControl" [errorStateMatcher]="matcher">
+                        </mat-form-field>
+
+                    </mat-card-content>
+                    <mat-card-actions class="acciones">
+                        <button mat-raised-button color="primary" type="submit">
+							<mat-icon aria-hidden="false" aria-label="Enviar">send</mat-icon> Enviar
+						</button>
+                    </mat-card-actions>
+                </mat-card>
+            </form>
+        </div>
+    </mat-tab>
+
+    <mat-tab label="Borrar cuenta">
+        <div class="container">
+            <p>¡ATENCIÓN! Si borras tu cuenta todos los datos de tu cuenta, así como tus códigos QR, serán borrados permanentemente.
+            </p>
+            <p>¿Estás seguro de que deseas continuar?</p>
+
+            <form class="formCard" (submit)="clickDelete()">
+                <mat-card>
+                    <mat-card-title>Borrar cuenta</mat-card-title>
+                    <mat-card-subtitle>Si estás seguro, por favor, indica tu contraseña</mat-card-subtitle>
+                    <mat-card-content>
+
+                        <mat-form-field class="form-field">
+                            <mat-label>Contraseña</mat-label>
+                            <input matInput type="password" [formControl]="passwordDeleteFormControl" [errorStateMatcher]="matcher">
+                            <mat-error *ngIf="passwordDeleteFormControl.hasError('required')">
+                                Campo obligatorio
+                            </mat-error>
+                        </mat-form-field>
+
+                    </mat-card-content>
+                    <mat-card-actions class="acciones">
+                        <button mat-raised-button color="warn" type="submit">
+							<mat-icon aria-hidden="false" aria-label="Enviar">delete</mat-icon> Borrar mi cuenta
+						</button>
+                    </mat-card-actions>
+                </mat-card>
+            </form>
+
+        </div>
+    </mat-tab>
+</mat-tab-group>

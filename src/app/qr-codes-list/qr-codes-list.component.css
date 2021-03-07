@@ -1,3 +1,21 @@
 table {
     width: 100%;
 }
+
+.floatingBtn {
+    position: absolute;
+    bottom: 1em;
+    right: 1em;
+}
+
+@media (min-width: 1200px) {
+    .floatingBtn {
+        position: absolute;
+        bottom: 2em;
+        right: 2em;
+    }
+}
+
+::ng-deep .mat-tooltip {
+    font-size: 1em !important;
+}

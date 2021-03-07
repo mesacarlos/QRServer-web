@@ -9,6 +9,9 @@ import { merge, Observable, of as observableOf } from 'rxjs';
 import { UserService } from '../core/service/user.service';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { QRCode } from '../core/model/qrcode.model';
+import { InfoDialogComponent } from '../info-dialog/info-dialog.component';
+import { openSnackBar } from '../core/util/snackBarUtils';
+import { SessionService } from '../core/service/session.service';
 
 @Component({
 	selector: 'app-qr-codes-list',
@@ -16,21 +19,25 @@ import { QRCode } from '../core/model/qrcode.model';
 	styleUrls: ['./qr-codes-list.component.css']
 })
 export class QrCodesListComponent implements AfterViewInit {
-	displayedColumns: string[] = ['id', 'destination_url', 'created_at', 'actions'];
+	displayedColumns: string[] = ['id', 'destination_url', 'actions'];
 	dataSource: QRCode[] = [];
 	resultsLength = 0;
 	isLoadingResults = true;
-	isRateLimitReached = false;
 
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 	constructor(
 		private userService: UserService,
+		private sessService: SessionService,
 		private _snackBar: MatSnackBar,
 		public dialog: MatDialog,
 		private router: Router
 	) { }
 
 	ngAfterViewInit(): void {
+		this.dialog.open(InfoDialogComponent, {
+			width: '250px',
+			data: { loading: true }
+		});
 		merge(this.paginator.page)
 			.pipe(
 				startWith({}),
@@ -41,15 +48,18 @@ export class QrCodesListComponent implements AfterViewInit {
 				map(data => {
 					// Flip flag to show that loading has finished.
 					this.isLoadingResults = false;
-					this.isRateLimitReached = false;
+					this.dialog.closeAll();
 					this.resultsLength = data.totalItems;
-
 					return data.items;
 				}),
-				catchError(() => {
+				catchError((err) => {
+					if (err.status == 401){
+						openSnackBar(this._snackBar, "Error: La sesión se cerró desde otro lugar.", "Cerrar", 20000);
+						this.sessService.logOutLocally();
+						this.router.navigate(['/login']);
+					}
 					this.isLoadingResults = false;
-					// Catch if the GitHub API has reached its rate limit. Return empty data.
-					this.isRateLimitReached = true;
+					this.dialog.closeAll();
 					return observableOf([]);
 				})
 			).subscribe(data => this.dataSource = data);

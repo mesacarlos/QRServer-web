@@ -15,7 +15,7 @@ export class UserService {
 	constructor(private http: HttpClient) {
 	}
 
-	public logOut(): Observable<boolean>{
+	public logOut(): Observable<boolean> {
 		let jsonHeader = new HttpHeaders()
 			.set('Content-Type', 'aplication/json')
 			.set("api_token", localStorage.getItem("api_token"));
@@ -24,7 +24,7 @@ export class UserService {
 		});
 	}
 
-	public getLoggedUser(): Observable<User>{
+	public getLoggedUser(): Observable<User> {
 		let jsonHeader = new HttpHeaders()
 			.set('Content-Type', 'aplication/json')
 			.set("api_token", localStorage.getItem("api_token"));
@@ -33,11 +33,32 @@ export class UserService {
 		});
 	}
 
-	//TODO PUT /user/me
+	public updateSelfAccount(username: string, email: string, password: string): Observable<User> {
+		let jsonHeader = new HttpHeaders()
+			.set('Content-Type', 'aplication/json')
+			.set("api_token", localStorage.getItem("api_token"));
+		return this.http.put<User>(this.env.API_BASE_URL + "/user/me", {
+			"username": username,
+			"email": email,
+			"password": password,
+		}, {
+			headers: jsonHeader
+		});
+	}
 
-	//TODO DELETE /user/me
+	public deleteSelfAccount(password: string): Observable<boolean> {
+		let jsonHeader = new HttpHeaders()
+			.set('Content-Type', 'aplication/json')
+			.set("api_token", localStorage.getItem("api_token"));
+		return this.http.request<boolean>("DELETE", this.env.API_BASE_URL + "/user/me", {
+			headers: jsonHeader,
+			body: {
+				"password": password,
+			},
+		});
+	}
 
-	public getLoggedUserQRCodes(itemsPerPage: number, pageNumber: number): Observable<Pagination<QRCode>>{
+	public getLoggedUserQRCodes(itemsPerPage: number, pageNumber: number): Observable<Pagination<QRCode>> {
 		let jsonHeader = new HttpHeaders()
 			.set('Content-Type', 'aplication/json')
 			.set("api_token", localStorage.getItem("api_token"));

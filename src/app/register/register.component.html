@@ -9,9 +9,6 @@
             <mat-form-field class="register-field">
                 <mat-label>Nombre de usuario</mat-label>
                 <input matInput type="text" autocomplete="off" [formControl]="usernameFormControl" [errorStateMatcher]="matcher">
-                <mat-error *ngIf="usernameFormControl.hasError('email') && !usernameFormControl.hasError('required')">
-                    Introduce una dirección de email válida
-                </mat-error>
                 <mat-error *ngIf="usernameFormControl.hasError('required')">
                     Campo obligatorio
                 </mat-error>

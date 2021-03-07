@@ -18,8 +18,6 @@ export class SessionService {
 		const resultObservable = new Observable((observer) => {
 			this.userService.getLoggedUser().subscribe({
 				next: (r) => {
-					r.api_token = api_token; //Metemos aqui el api_token pa guardarlo con el usuario
-					localStorage.setItem("user_object", JSON.stringify(r));
 					observer.next(r);
 					this.lastIsLoggedInResponse = true;
 				},
@@ -32,11 +30,15 @@ export class SessionService {
 	}
 
 	public isLoggedIn(): boolean {
-		let user: User = JSON.parse(localStorage.getItem("user_object"));
-		let result: boolean = user != null && user.api_token === localStorage.getItem("api_token");
+		let result: boolean = localStorage.getItem("api_token") ? true : false;
 		this.lastIsLoggedInResponse = result;
 		return result;
-		//TODO Si en algun momento la aplicacion recibe un 401, hay que llamar aqui a logOut!
+		//TODO Si en algun momento la aplicacion recibe un 401, hay que llamar aqui a logOutLocally!
+	}
+
+	public logOutLocally() {
+		this.lastIsLoggedInResponse = false;
+		localStorage.removeItem("api_token");
 	}
 
 	public logOut(): void {
@@ -44,7 +46,6 @@ export class SessionService {
 			next: (r) => {
 				this.lastIsLoggedInResponse = false;
 				localStorage.removeItem("api_token");
-				localStorage.removeItem("user_object");
 				console.log(r);
 			},
 			error: (err) => {

@@ -1,0 +1,20 @@
+.container {
+    margin: 1em;
+}
+
+.formCard {
+    margin: auto;
+    min-width: 150px;
+    max-width: 600px;
+    width: 100%;
+}
+
+.form-field {
+    width: 90%;
+    padding: 1.5em;
+}
+
+.acciones {
+    text-align: right;
+    margin-right: 10px;
+}
