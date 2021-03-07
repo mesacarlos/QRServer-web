@@ -1,17 +1,18 @@
-import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
-import { merge, Observable, of as observableOf } from 'rxjs';
+import { merge, of as observableOf } from 'rxjs';
 import { UserService } from '../core/service/user.service';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
-import { QRCode } from '../core/model/qrcode.model';
 import { InfoDialogComponent } from '../info-dialog/info-dialog.component';
 import { openSnackBar } from '../core/util/snackBarUtils';
 import { SessionService } from '../core/service/session.service';
+import { QrCodesAddComponent } from '../qr-codes-add/qr-codes-add.component';
+import { MatTableDataSource } from '@angular/material/table';
+import { SlicePipe } from '@angular/common';
 
 @Component({
 	selector: 'app-qr-codes-list',
@@ -20,7 +21,7 @@ import { SessionService } from '../core/service/session.service';
 })
 export class QrCodesListComponent implements AfterViewInit {
 	displayedColumns: string[] = ['id', 'destination_url', 'actions'];
-	dataSource: QRCode[] = [];
+	dataSource = new MatTableDataSource();
 	resultsLength = 0;
 	isLoadingResults = true;
 
@@ -30,8 +31,12 @@ export class QrCodesListComponent implements AfterViewInit {
 		private sessService: SessionService,
 		private _snackBar: MatSnackBar,
 		public dialog: MatDialog,
-		private router: Router
+		private router: Router,
+		private slicePipe: SlicePipe,
 	) { }
+
+	//TODO Los qr expandibles al hacer click (ejemplo en la api)
+	//TODO que los puntos suspensidos solo salgan en movil, no en pc
 
 	ngAfterViewInit(): void {
 		this.dialog.open(InfoDialogComponent, {
@@ -43,17 +48,16 @@ export class QrCodesListComponent implements AfterViewInit {
 				startWith({}),
 				switchMap(() => {
 					this.isLoadingResults = true;
-					return this.userService.getLoggedUserQRCodes(this.paginator.pageSize, this.paginator.pageIndex+1);
+					return this.userService.getLoggedUserQRCodes(this.paginator.pageSize, this.paginator.pageIndex + 1);
 				}),
 				map(data => {
-					// Flip flag to show that loading has finished.
 					this.isLoadingResults = false;
 					this.dialog.closeAll();
 					this.resultsLength = data.totalItems;
 					return data.items;
 				}),
 				catchError((err) => {
-					if (err.status == 401){
+					if (err.status == 401) {
 						openSnackBar(this._snackBar, "Error: La sesión se cerró desde otro lugar.", "Cerrar", 20000);
 						this.sessService.logOutLocally();
 						this.router.navigate(['/login']);
@@ -62,8 +66,24 @@ export class QrCodesListComponent implements AfterViewInit {
 					this.dialog.closeAll();
 					return observableOf([]);
 				})
-			).subscribe(data => this.dataSource = data);
+			).subscribe(data => this.dataSource.data = data);
+	}
+
+	openAddDialog(): void {
+		const dialogRef = this.dialog.open(QrCodesAddComponent, {
+			data: {}
+		});
+
+		dialogRef.afterClosed().subscribe(result => {
+			this.ngAfterViewInit();
+		});
+	}
+
+	beautifyString(url: string, limit: number) {
+		let noProtocol = url.replace(/(^\w+:|^)\/\//, '');
+		if (noProtocol.length > limit)
+			return this.slicePipe.transform(noProtocol, 0, limit - 3) + "...";
+		return noProtocol;
 	}
 
 }
-//TODO Los qr expandibles al hacer click (ejemplo en la api)

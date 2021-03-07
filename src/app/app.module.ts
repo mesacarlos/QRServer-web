@@ -49,6 +49,8 @@ import { NotLoggedInGuard } from './core/util/NotLoggedInGuard';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { AccountComponent } from './account/account.component';
 import { getSpanishPaginatorIntl } from './core/util/SpanishPaginatorIntl';
+import { QrCodesAddComponent } from './qr-codes-add/qr-codes-add.component';
+import { SlicePipe } from '@angular/common';
 
 @NgModule({
 	declarations: [
@@ -62,6 +64,7 @@ import { getSpanishPaginatorIntl } from './core/util/SpanishPaginatorIntl';
 		InfoDialogComponent,
 		ForgotPasswordComponent,
 		AccountComponent,
+		QrCodesAddComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -105,7 +108,8 @@ import { getSpanishPaginatorIntl } from './core/util/SpanishPaginatorIntl';
 	providers: [
 		LoggedInGuard,
 		NotLoggedInGuard,
-		{ provide: MatPaginatorIntl, useValue: getSpanishPaginatorIntl() }
+		{ provide: MatPaginatorIntl, useValue: getSpanishPaginatorIntl() },
+		SlicePipe
 	],
 	bootstrap: [AppComponent]
 })
