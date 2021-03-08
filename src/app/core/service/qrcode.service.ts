@@ -17,7 +17,7 @@ export class QRCodeService {
 	public getQRCode(id: string): Observable<QRCode> {
 		let jsonHeader = new HttpHeaders()
 			.set('Content-Type', 'aplication/json')
-			.set("api_token", localStorage.getItem("api_token"));
+			.set("apitoken", localStorage.getItem("api_token"));
 		return this.http.get<QRCode>(this.env.API_BASE_URL + "/qrcode/" + id, {
 			headers: jsonHeader
 		});
@@ -30,7 +30,7 @@ export class QRCodeService {
 
 		let jsonHeader = new HttpHeaders()
 			.set('Content-Type', 'aplication/json')
-			.set("api_token", localStorage.getItem("api_token"));
+			.set("apitoken", localStorage.getItem("api_token"));
 		return this.http.post<QRCode>(this.env.API_BASE_URL + "/qrcode", {
 			"id": id,
 			"destination_url": destination_url,

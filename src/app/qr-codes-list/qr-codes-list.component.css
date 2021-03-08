@@ -3,8 +3,6 @@
     overflow: auto;
 }
 
-table {}
-
 .floatingBtn {
     position: absolute;
     bottom: 1em;

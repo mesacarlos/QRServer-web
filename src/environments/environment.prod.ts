@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  API_BASE_URL: "http://qr.mesacarlos.es/api/v1",
+  API_BASE_URL: "https://qr.mesacarlos.es/api/v1",
 };

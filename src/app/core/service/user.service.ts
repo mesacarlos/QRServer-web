@@ -18,7 +18,7 @@ export class UserService {
 	public logOut(): Observable<boolean> {
 		let jsonHeader = new HttpHeaders()
 			.set('Content-Type', 'aplication/json')
-			.set("api_token", localStorage.getItem("api_token"));
+			.set("apitoken", localStorage.getItem("api_token"));
 		return this.http.delete<boolean>(this.env.API_BASE_URL + "/logout", {
 			headers: jsonHeader
 		});
@@ -27,7 +27,7 @@ export class UserService {
 	public getLoggedUser(): Observable<User> {
 		let jsonHeader = new HttpHeaders()
 			.set('Content-Type', 'aplication/json')
-			.set("api_token", localStorage.getItem("api_token"));
+			.set("apitoken", localStorage.getItem("api_token"));
 		return this.http.get<User>(this.env.API_BASE_URL + "/user/me", {
 			headers: jsonHeader
 		});
@@ -36,7 +36,7 @@ export class UserService {
 	public updateSelfAccount(username: string, email: string, password: string): Observable<User> {
 		let jsonHeader = new HttpHeaders()
 			.set('Content-Type', 'aplication/json')
-			.set("api_token", localStorage.getItem("api_token"));
+			.set("apitoken", localStorage.getItem("api_token"));
 		return this.http.put<User>(this.env.API_BASE_URL + "/user/me", {
 			"username": username,
 			"email": email,
@@ -49,7 +49,7 @@ export class UserService {
 	public deleteSelfAccount(password: string): Observable<boolean> {
 		let jsonHeader = new HttpHeaders()
 			.set('Content-Type', 'aplication/json')
-			.set("api_token", localStorage.getItem("api_token"));
+			.set("apitoken", localStorage.getItem("api_token"));
 		return this.http.request<boolean>("DELETE", this.env.API_BASE_URL + "/user/me", {
 			headers: jsonHeader,
 			body: {
@@ -61,7 +61,7 @@ export class UserService {
 	public getLoggedUserQRCodes(itemsPerPage: number, pageNumber: number): Observable<Pagination<QRCode>> {
 		let jsonHeader = new HttpHeaders()
 			.set('Content-Type', 'aplication/json')
-			.set("api_token", localStorage.getItem("api_token"));
+			.set("apitoken", localStorage.getItem("api_token"));
 		return this.http.get<Pagination<QRCode>>(this.env.API_BASE_URL + "/user/me/qrcodes", {
 			headers: jsonHeader,
 			params: {

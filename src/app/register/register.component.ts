@@ -29,6 +29,7 @@ export class RegisterComponent implements OnInit {
 	usernameFormControl = new FormControl('', [
 		Validators.required,
 		Validators.maxLength(24),
+		Validators.pattern("^[a-zA-Z0-9_]+$"),
 	]);
 	emailFormControl = new FormControl('', [
 		Validators.required,

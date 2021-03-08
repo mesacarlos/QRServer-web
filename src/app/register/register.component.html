@@ -13,6 +13,9 @@
                 <mat-error *ngIf="usernameFormControl.hasError('required')">
                     Campo obligatorio
                 </mat-error>
+                <mat-error *ngIf="usernameFormControl.hasError('pattern')">
+                    El nombre de usuario debe contener únicamente números, letras y barra baja
+                </mat-error>
                 <mat-error *ngIf="usernameFormControl.hasError('maxlength')">
                     Límite de 24 caracteres
                 </mat-error>
