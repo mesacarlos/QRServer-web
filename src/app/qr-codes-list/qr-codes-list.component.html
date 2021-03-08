@@ -1,18 +1,18 @@
 <h1>Mis códigos QR</h1>
-<div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource">
+<div class="mat-elevation-z8 containerTable">
+    <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="containerTable">
 
         <!-- Id Column -->
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef> Id </th>
-            <td mat-cell *matCellDef="let element">{{ beautifyString(element.id, 10) }}</td>
+            <td mat-cell *matCellDef="let element">{{ element.id }}</td>
         </ng-container>
 
         <!-- Destination Column -->
         <ng-container matColumnDef="destination_url">
             <th mat-header-cell *matHeaderCellDef> Destino </th>
             <td mat-cell *matCellDef="let element">
-                <a mat-button [href]="element.destination_url" target="_blank">{{ beautifyString(element.destination_url, 20) }}</a>
+                <a mat-button [href]="element.destination_url" target="_blank">{{ beautifyString(element.destination_url, 30) }}</a>
             </td>
         </ng-container>
 
@@ -26,8 +26,18 @@
             </td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+                <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                    <div [innerHTML]="element.svg_image"></div>
+                </div>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row" [class.example-expanded-row]="expandedElement === element" (click)="expandRow(element)">
+        </tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
     </table>
     <mat-paginator [length]="resultsLength" [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons></mat-paginator>
 </div>

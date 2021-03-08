@@ -14,12 +14,20 @@ export class QRCodeService {
 	}
 
 	//TODO GET /api/v1/qrcode/{id:[A-Za-z0-9]+}
+	public getQRCode(id: string): Observable<QRCode> {
+		let jsonHeader = new HttpHeaders()
+			.set('Content-Type', 'aplication/json')
+			.set("api_token", localStorage.getItem("api_token"));
+		return this.http.get<QRCode>(this.env.API_BASE_URL + "/qrcode/" + id, {
+			headers: jsonHeader
+		});
+	}
 
 	//TODO POST /api/v1/qrcode
 	public createQRCode(id: string, destination_url: string): Observable<QRCode> {
 		if (destination_url.indexOf('http://') === -1 && destination_url.indexOf('https://') === -1)
 			destination_url = 'http://' + destination_url;
-		
+
 		let jsonHeader = new HttpHeaders()
 			.set('Content-Type', 'aplication/json')
 			.set("api_token", localStorage.getItem("api_token"));

@@ -1,6 +1,9 @@
-table {
+.containerTable {
     width: 100%;
+    overflow: auto;
 }
+
+table {}
 
 .floatingBtn {
     position: absolute;
@@ -18,4 +21,25 @@ table {
 
 ::ng-deep .mat-tooltip {
     font-size: 0.8em !important;
+}
+
+tr.example-detail-row {
+    height: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+    background: whitesmoke;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+    background: #efefef;
+}
+
+.example-element-row td {
+    border-bottom-width: 0;
+}
+
+.example-element-detail {
+    overflow: hidden;
+    display: flex;
 }
