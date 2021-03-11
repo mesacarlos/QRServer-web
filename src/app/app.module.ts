@@ -51,6 +51,9 @@ import { AccountComponent } from './account/account.component';
 import { getSpanishPaginatorIntl } from './core/util/SpanishPaginatorIntl';
 import { QrCodesAddComponent } from './qr-codes-add/qr-codes-add.component';
 import { SlicePipe } from '@angular/common';
+import { QrCodesListOptionsComponent } from './qr-codes-list-options/qr-codes-list-options.component';
+import { MatBottomSheet, MatBottomSheetModule, MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { QrCodesEditComponent } from './qr-codes-edit/qr-codes-edit.component';
 
 @NgModule({
 	declarations: [
@@ -65,6 +68,8 @@ import { SlicePipe } from '@angular/common';
 		ForgotPasswordComponent,
 		AccountComponent,
 		QrCodesAddComponent,
+		QrCodesListOptionsComponent,
+		QrCodesEditComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -103,6 +108,7 @@ import { SlicePipe } from '@angular/common';
 		MatTableModule,
 		MatSortModule,
 		MatPaginatorModule,
+		MatBottomSheetModule,
 		FlexLayoutModule,
 	],
 	providers: [

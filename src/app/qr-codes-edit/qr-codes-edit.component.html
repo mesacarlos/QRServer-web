@@ -1,0 +1,36 @@
+<h1 mat-dialog-title>Editando código QR: {{ data.element.id }}</h1>
+
+<div mat-dialog-content *ngIf="!isLoading">
+    <mat-form-field class="edit-field">
+        <mat-label>URL de destino</mat-label>
+        <input matInput placeholder="google.es" autocomplete="off" [formControl]="destinationFormControl" (keyup.enter)="clickSend()">
+        <mat-hint align="start">Cambia esta URL para modificar el destino de tu QR</mat-hint>
+        <mat-error *ngIf="destinationFormControl.hasError('required')">
+            Campo obligatorio
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="edit-field">
+        <mat-label>Identificador (Opcional)</mat-label>
+        <input matInput placeholder="carta_mirestaurante" autocomplete="off" [formControl]="identifierFormControl" [errorStateMatcher]="matcher" (keyup.enter)="clickSend()">
+        <mat-hint align="end">{{identifierFormControl.value.length}} / 16</mat-hint>
+        <mat-error *ngIf="identifierFormControl.hasError('minlength')">
+            Introduce 3 caracteres como mínimo
+        </mat-error>
+        <mat-error *ngIf="identifierFormControl.hasError('maxlength')">
+            Límite de 16 caracteres
+        </mat-error>
+        <mat-icon matSuffix color="warn" aria-label="Atencion!" matTooltip="¡CUIDADO! Si modificas el identificador, los QR anteriores dejarán de ser validos! No modifiques este campo, salvo que sepas exactamente qué estas haciendo!">
+            warning_amber
+        </mat-icon>
+    </mat-form-field>
+    <p></p>
+</div>
+<div mat-dialog-content *ngIf="isLoading">
+    <p>Editando código QR</p>
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+<div mat-dialog-actions align="end" *ngIf="!isLoading">
+    <button mat-button (click)="clickCancel()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="clickSend()">Editar</button>
+</div>

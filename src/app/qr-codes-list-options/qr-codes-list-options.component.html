@@ -1,0 +1,31 @@
+<mat-nav-list>
+    <a mat-list-item [href]="env.SHORTED_QR_URL + '/' + data.element.id" target="_blank" fxShow="true" fxHide.gt-sm="true">
+        <span mat-line>Abrir enlace</span>
+        <span mat-line>Abre el enlace de este código QR en una nueva pestaña</span>
+    </a>
+
+    <a mat-list-item (click)="copyQR($event)" fxShow="true" fxHide.gt-sm="true">
+        <span mat-line>Copiar enlace acortado</span>
+        <span mat-line>Copia el enlace corto de este código QR</span>
+    </a>
+
+    <a mat-list-item (click)="downloadQR($event)" fxShow="true" fxHide.gt-sm="true">
+        <span mat-line>Descargar código QR</span>
+        <span mat-line>Descarga una versión estándar de este código QR</span>
+    </a>
+
+    <a mat-list-item (click)="editQR($event)">
+        <span mat-line>Editar código QR</span>
+        <span mat-line>Modifica el tipo o destino de tu código QR</span>
+    </a>
+
+    <a mat-list-item (click)="customizeQR($event)">
+        <span mat-line>Personalizar</span>
+        <span mat-line>Genera un código QR con un color, logotipo o diseño personalizado (Lo hare lo ultimo si sobra tiempo)</span>
+    </a>
+
+    <a mat-list-item (click)="deleteQR($event)">
+        <span mat-line>Eliminar código QR</span>
+        <span mat-line>Elimina completamente el código QR</span>
+    </a>
+</mat-nav-list>

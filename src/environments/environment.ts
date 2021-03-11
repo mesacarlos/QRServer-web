@@ -5,6 +5,8 @@
 export const environment = {
 	production: false,
 	API_BASE_URL: "http://localhost:8000/api/v1",
+	FRONTEND_URL: "http://localhost:4200",
+	SHORTED_QR_URL: "http://localhost:8000/q",
 };
 
 /*

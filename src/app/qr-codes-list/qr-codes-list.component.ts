@@ -17,6 +17,9 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { QRCode } from '../core/model/qrcode.model';
 import { QRCodeService } from '../core/service/qrcode.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { MatBottomSheet, MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { QrCodesListOptionsComponent } from '../qr-codes-list-options/qr-codes-list-options.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
 	selector: 'app-qr-codes-list',
@@ -36,6 +39,7 @@ export class QrCodesListComponent implements AfterViewInit {
 	resultsLength = 0;
 	isLoadingResults = true;
 	expandedElement: QRCode | null;
+	env = environment;
 
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 	constructor(
@@ -46,6 +50,7 @@ export class QrCodesListComponent implements AfterViewInit {
 		private router: Router,
 		private slicePipe: SlicePipe,
 		private qrCodesService: QRCodeService,
+		private _bottomSheet: MatBottomSheet,
 		private sanitizer: DomSanitizer
 	) { }
 
@@ -114,6 +119,11 @@ export class QrCodesListComponent implements AfterViewInit {
 				qrCode.svg_image = this.sanitizer.bypassSecurityTrustHtml(<string> r.svg_image);
 			},
 			error: (err) => {
+				if (err.status == 401) {
+					openSnackBar(this._snackBar, "Error: La sesión se cerró desde otro lugar.", "Cerrar", 20000);
+					this.sessService.logOutLocally();
+					this.router.navigate(['/login']);
+				}
 				if (err.status == 404) {
 					openSnackBar(this._snackBar, "Error: El Token no existe", "Cerrar", 20000);
 				} else {
@@ -122,6 +132,16 @@ export class QrCodesListComponent implements AfterViewInit {
 				console.log("Error creating QR Code:", err);
 			}
 		});
+	}
+
+	openOptionsMenu(event, element: QRCode){
+		this._bottomSheet.open(QrCodesListOptionsComponent, { 
+			data: {
+				element: element,
+				qrCodesListComponent: this,
+			}
+		});
+		event.stopPropagation();
 	}
 
 }

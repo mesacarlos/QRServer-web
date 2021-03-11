@@ -13,7 +13,6 @@ export class QRCodeService {
 	constructor(private http: HttpClient) {
 	}
 
-	//TODO GET /api/v1/qrcode/{id:[A-Za-z0-9]+}
 	public getQRCode(id: string): Observable<QRCode> {
 		let jsonHeader = new HttpHeaders()
 			.set('Content-Type', 'aplication/json')
@@ -23,7 +22,6 @@ export class QRCodeService {
 		});
 	}
 
-	//TODO POST /api/v1/qrcode
 	public createQRCode(id: string, destination_url: string): Observable<QRCode> {
 		if (destination_url.indexOf('http://') === -1 && destination_url.indexOf('https://') === -1)
 			destination_url = 'http://' + destination_url;
@@ -39,10 +37,29 @@ export class QRCodeService {
 		});
 	}
 
-	//TODO PUT /api/v1/qrcode/{id:[A-Za-z0-9]+}
+	public updateQRCode(id: string, new_id: string, destination_url: string): Observable<QRCode> {
+		if (destination_url.indexOf('http://') === -1 && destination_url.indexOf('https://') === -1)
+			destination_url = 'http://' + destination_url;
 
-	//TODO DELETE /api/v1/qrcode/{id:[A-Za-z0-9]+}
+		let jsonHeader = new HttpHeaders()
+			.set('Content-Type', 'aplication/json')
+			.set("apitoken", localStorage.getItem("api_token"));
+		return this.http.put<QRCode>(this.env.API_BASE_URL + "/qrcode/" + id, {
+			"id": new_id,
+			"destination_url": destination_url,
+		}, {
+			headers: jsonHeader
+		});
+	}
 
-	//TODO GET /api/v1/qrcode/{id:[A-Za-z0-9]+}/qrclicks
+	public deleteQRCode(id: string): Observable<boolean> {
+		let jsonHeader = new HttpHeaders()
+			.set('Content-Type', 'aplication/json')
+			.set("apitoken", localStorage.getItem("api_token"));
+		return this.http.delete<boolean>(this.env.API_BASE_URL + "/qrcode/" + id, {
+			headers: jsonHeader
+		});
+	}
+
 
 }

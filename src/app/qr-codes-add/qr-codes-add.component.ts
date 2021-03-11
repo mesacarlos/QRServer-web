@@ -11,8 +11,7 @@ import { openSnackBar } from '../core/util/snackBarUtils';
 	templateUrl: './qr-codes-add.component.html',
 	styleUrls: ['./qr-codes-add.component.css']
 })
-export class QrCodesAddComponent implements OnInit {
-	public destination_url: string = "";
+export class QrCodesAddComponent {
 	public isLoading: boolean = false;
 
 	matcher = new FormErrorStateMatcher();
@@ -29,9 +28,6 @@ export class QrCodesAddComponent implements OnInit {
 		private qrCodesService: QRCodeService,
 		private _snackBar: MatSnackBar,
 	) { }
-
-	ngOnInit(): void {
-	}
 
 	clickSend() {
 		if (this.destinationFormControl.errors != null)

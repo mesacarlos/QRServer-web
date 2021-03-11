@@ -15,7 +15,7 @@ export class LogoutComponent implements AfterViewChecked {
 	ngAfterViewChecked(): void {
 		setTimeout(()=> {
 			this.sessService.logOut();
-		}, 100);
+		}, 200);
 	}
 
 }
