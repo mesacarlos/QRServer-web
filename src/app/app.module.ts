@@ -54,6 +54,7 @@ import { SlicePipe } from '@angular/common';
 import { QrCodesListOptionsComponent } from './qr-codes-list-options/qr-codes-list-options.component';
 import { MatBottomSheet, MatBottomSheetModule, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { QrCodesEditComponent } from './qr-codes-edit/qr-codes-edit.component';
+import {ClipboardModule} from '@angular/cdk/clipboard';
 
 @NgModule({
 	declarations: [
@@ -110,6 +111,7 @@ import { QrCodesEditComponent } from './qr-codes-edit/qr-codes-edit.component';
 		MatPaginatorModule,
 		MatBottomSheetModule,
 		FlexLayoutModule,
+		ClipboardModule
 	],
 	providers: [
 		LoggedInGuard,

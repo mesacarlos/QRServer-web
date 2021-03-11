@@ -144,4 +144,10 @@ export class QrCodesListComponent implements AfterViewInit {
 		event.stopPropagation();
 	}
 
+	stopPropagation(event) {
+		event.stopPropagation();
+	}
+
+	
+
 }
