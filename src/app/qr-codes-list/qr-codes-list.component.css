@@ -68,6 +68,8 @@ tr.qrlist-element-row:not(.qrlist-expanded-row):active {
 
 .qrlist-element-image {
     margin: 8px 0;
+    width: 128px;
+    height: 128px;
 }
 
 .qrlist-element-details {

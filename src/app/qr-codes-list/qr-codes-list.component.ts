@@ -108,15 +108,15 @@ export class QrCodesListComponent implements AfterViewInit {
 	expandRow(element: QRCode) {
 		this.expandedElement = this.expandedElement === element ? null : element;
 
-		//Add the svg image to the object
+		//Add the png image to the object
 		let qrCode: QRCode = this.dataSource.data.find((e: QRCode) => { return e.id == element.id });
 
-		if (qrCode.svg_image)
+		if (qrCode.png_image)
 			return; //Image already downloaded
 
 		this.qrCodesService.getQRCode(qrCode.id).subscribe({
 			next: (r) => {
-				qrCode.svg_image = this.sanitizer.bypassSecurityTrustHtml(<string> r.svg_image);
+				qrCode.png_image = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/png;base64,' + r.png_image);
 			},
 			error: (err) => {
 				if (err.status == 401) {
@@ -147,7 +147,5 @@ export class QrCodesListComponent implements AfterViewInit {
 	stopPropagation(event) {
 		event.stopPropagation();
 	}
-
-	
 
 }

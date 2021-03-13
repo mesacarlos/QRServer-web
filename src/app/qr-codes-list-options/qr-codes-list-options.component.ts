@@ -41,11 +41,6 @@ export class QrCodesListOptionsComponent {
 		event.preventDefault();
 	}
 
-	downloadQR(event: MouseEvent): void {
-		this._bottomSheetRef.dismiss();
-		event.preventDefault();
-	}
-
 	editQR(event) {
 		this._bottomSheetRef.dismiss();
 
