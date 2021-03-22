@@ -57,6 +57,7 @@ import { QrCodesEditComponent } from './qr-codes-edit/qr-codes-edit.component';
 import {ClipboardModule} from '@angular/cdk/clipboard';
 import { QrcodesStatsComponent } from './qrcodes-stats/qrcodes-stats.component';
 import { QrcodesCustomizeComponent } from './qrcodes-customize/qrcodes-customize.component';
+import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
 
 @NgModule({
 	declarations: [
@@ -115,12 +116,14 @@ import { QrcodesCustomizeComponent } from './qrcodes-customize/qrcodes-customize
 		MatPaginatorModule,
 		MatBottomSheetModule,
 		FlexLayoutModule,
-		ClipboardModule
+		ClipboardModule,
+		NgxMatColorPickerModule
 	],
 	providers: [
 		LoggedInGuard,
 		NotLoggedInGuard,
 		{ provide: MatPaginatorIntl, useValue: getSpanishPaginatorIntl() },
+		{ provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS },
 		SlicePipe
 	],
 	bootstrap: [AppComponent]

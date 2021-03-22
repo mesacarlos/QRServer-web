@@ -2,15 +2,33 @@
     text-align: center;
 }
 
+.qrcodeImage {
+    max-width: 180px;
+    max-height: 180px;
+    margin: auto;
+}
+
 .left {
     display: inline-block;
     vertical-align: middle;
     padding-right: 20px;
-    text-align: center;
+    margin: auto;
 }
 
 .right {
     display: inline-block;
     vertical-align: middle;
     text-align: left;
+}
+
+mat-card {
+    margin-bottom: 10px;
+}
+
+mat-card-content {
+    text-align: center;
+}
+
+mat-form-field {
+    margin-right: 10px;
 }

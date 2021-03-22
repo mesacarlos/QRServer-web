@@ -13,13 +13,26 @@ export class QRCodeService {
 	constructor(private http: HttpClient) {
 	}
 
-	public getQRCode(id: string): Observable<QRCode> {
+	public getQRCode(id: string, foreground_color?: string, background_color?: string, dot_style?: string, size?: string): Observable<QRCode> {
 		let jsonHeader = new HttpHeaders()
 			.set('Content-Type', 'aplication/json')
 			.set("apitoken", localStorage.getItem("api_token"));
+			console.log(Object.assign({},
+				foreground_color === null ? null : { foreground_color },
+				background_color === null ? null : { background_color },
+				dot_style === null ? null : { dot_style },
+				size === null ? null : { size },
+			))
 		return this.http.get<QRCode>(this.env.API_BASE_URL + "/qrcode/" + id, {
-			headers: jsonHeader
+			headers: jsonHeader,
+			params: Object.assign({},
+				foreground_color === null ? null : { foreground_color },
+				background_color === null ? null : { background_color },
+				dot_style === null ? null : { dot_style },
+				size === null ? null : { size },
+			),
 		});
+		
 	}
 
 	public createQRCode(id: string, destination_url: string): Observable<QRCode> {

@@ -116,7 +116,7 @@ export class QrCodesListComponent implements AfterViewInit {
 
 		this.qrCodesService.getQRCode(qrCode.id).subscribe({
 			next: (r) => {
-				qrCode.png_image = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/png;base64,' + r.png_image);
+				qrCode.png_image = this.sanitizer.bypassSecurityTrustResourceUrl(r.png_image + "");
 			},
 			error: (err) => {
 				if (err.status == 401) {

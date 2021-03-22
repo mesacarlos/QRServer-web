@@ -1,39 +1,71 @@
 <h1>Personalizar tu código QR</h1>
 <div class="container">
     <div class="left">
-        <img src="https://fonts.gstatic.com/s/i/materialicons/account_box/v10/24px.svg" class="qrcodeImage" alt="QR Code">
+        <img *ngIf="generatedQRCode?.png_image" [src]="generatedQRCode.png_image" class="qrcodeImage" alt="QR Code">
+        <mat-spinner *ngIf="!generatedQRCode?.png_image" class="qrcodeImage"></mat-spinner>
         <div class="center">
             <p>QRCode_id</p>
-            <p>Creado el DD/MM/AAAA</p>
+            <p>Creado el {{ generatedQRCodeDate?.toLocaleDateString() }}</p>
+            <a mat-icon-button color="primary" aria-label="Descargar" [disabled]="!generatedQRCode?.png_image" matTooltip="Descargar PNG" download="qr_{{ generatedQRCode?.id }}.png" [href]="generatedQRCode?.png_image">
+                <mat-icon>download</mat-icon> Descargar
+            </a>
         </div>
     </div>
 
     <div class="right">
-        <p>Selecciona color</p>
-        <p>Color de fondo</p>
-        <p>Selecciona color de los puntos de control</p>
-        <!-- Aviso de que algunos lectores de QR no soportan el cambio de color -->
+        <mat-card>
+            <mat-card-title>Colores</mat-card-title>
+            <mat-card-subtitle>Nota: Algunos lectores de QR no leen correctamente códigos QR con colores modificados.</mat-card-subtitle>
+            <mat-card-content>
+                <mat-form-field hintLabel="Pulsa el icono para seleccionar un color" appearance="outline">
+                    <mat-label>Color principal</mat-label>
+                    <input matInput [ngxMatColorPicker]="foregroundColorPicker" [formControl]="foregroundFormControl" autocomplete="off">
+                    <ngx-mat-color-toggle matSuffix [for]="foregroundColorPicker"></ngx-mat-color-toggle>
+                    <ngx-mat-color-picker #foregroundColorPicker [touchUi]="false"></ngx-mat-color-picker>
+                </mat-form-field>
 
-        <mat-form-field appearance="outline">
-            <mat-label>Estilo de puntos</mat-label>
-            <mat-select [(value)]="selectedDotStyle.valor">
-                <mat-option *ngFor="let dotStyle of dotStyles" [value]="dotStyle.valor">
-                    {{ dotStyle.nombre }}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-        <mat-form-field hintLabel="Entre 32 y 2048" appearance="outline">
-            <mat-label>Tamaño en píxeles</mat-label>
-            <input matInput placeholder="256" type="number" [formControl]="sizeFormControl" [errorStateMatcher]="matcher" autocomplete="off">
-            <span matSuffix>px</span>
-            <mat-error *ngIf="sizeFormControl.hasError('required')">
-                Campo obligatorio
-            </mat-error>
-            <mat-error *ngIf="sizeFormControl.hasError('min') || sizeFormControl.hasError('max')">
-                Debe ser mayor de 32 y menor de 2048
-            </mat-error>
-        </mat-form-field>
 
-        <p>Insertar logotipo</p>
+                <mat-form-field hintLabel="Pulsa el icono para seleccionar un color" appearance="outline">
+                    <mat-label>Color de fondo</mat-label>
+                    <input matInput [ngxMatColorPicker]="backgroundColorPicker" [formControl]="backgroundFormControl" autocomplete="off">
+                    <ngx-mat-color-toggle matSuffix [for]="backgroundColorPicker"></ngx-mat-color-toggle>
+                    <ngx-mat-color-picker #backgroundColorPicker [touchUi]="false"></ngx-mat-color-picker>
+                </mat-form-field>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card>
+            <mat-card-title>Otras personalizaciones</mat-card-title>
+
+            <mat-card-content>
+                <mat-form-field appearance="outline">
+                    <mat-label>Estilo de puntos</mat-label>
+                    <mat-select (selectionChange)="modelChanged.next()" [(value)]="selectedDotStyle.valor">
+                        <mat-option *ngFor="let dotStyle of dotStyles" [value]="dotStyle.valor">
+                            {{ dotStyle.nombre }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field hintLabel="Entre 32 y 2048" appearance="outline">
+                    <mat-label>Tamaño en píxeles</mat-label>
+                    <input matInput placeholder="256" type="number" [formControl]="sizeFormControl" [errorStateMatcher]="matcher" autocomplete="off">
+                    <span matSuffix>px</span>
+                    <mat-error *ngIf="sizeFormControl.hasError('required')">
+                        Campo obligatorio
+                    </mat-error>
+                    <mat-error *ngIf="sizeFormControl.hasError('min') || sizeFormControl.hasError('max')">
+                        Debe ser mayor de 32 y menor de 2048
+                    </mat-error>
+                </mat-form-field>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card>
+            <mat-card-title>Logotipo</mat-card-title>
+
+            <mat-card-content>
+
+            </mat-card-content>
+        </mat-card>
     </div>
 </div>
