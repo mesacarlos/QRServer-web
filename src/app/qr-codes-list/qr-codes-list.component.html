@@ -26,6 +26,9 @@
                 <button mat-icon-button color="primary" aria-label="Copiar enlace corto" matTooltip="Copiar al portapapeles" fxShow="true" fxHide.lt-md="true" [cdkCopyToClipboard]="env.SHORTED_QR_URL + '/' + element.id" (click)="stopPropagation($event)">
 					<mat-icon>content_copy</mat-icon>
 				</button>
+                <button mat-icon-button color="primary" aria-label="Ver estadísticas" matTooltip="Ver estadísticas" fxShow="true" fxHide.lt-md="true" routerLink="{{element.id}}/stats" (click)="stopPropagation($event)">
+					<mat-icon>bar_chart</mat-icon>
+				</button>
                 <button mat-icon-button color="primary" aria-label="Editar" (click)="openOptionsMenu($event, element)">
 					<mat-icon>more_horiz</mat-icon>
 				</button>
@@ -36,7 +39,8 @@
             <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
                 <div class="qrlist-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
                     <div class="qrlist-element-detail-info">
-                        <img class="qrlist-element-image" alt="Codigo QR" [src]="element.png_image" />
+                        <img *ngIf="element.png_image" class="qrlist-element-image" alt="Codigo QR" [src]="element.png_image" />
+                        <mat-spinner *ngIf="!element.png_image"></mat-spinner>
                         <div class="qrlist-element-details">
                             <p>
                                 <span>Aquí tienes tu QR</span>
@@ -47,7 +51,7 @@
                                 </a>
                             </p>
                             <p>
-                                <mat-icon style="vertical-align: middle;">assessment</mat-icon> 100 | Estadisticas
+                                <mat-icon style="vertical-align: middle;">assessment</mat-icon> 100 (ultimo mes)
                             </p>
                         </div>
                     </div>

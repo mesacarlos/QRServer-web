@@ -31,17 +31,11 @@ export class QrCodesListOptionsComponent {
 		@Inject(MAT_BOTTOM_SHEET_DATA) public data: { element: QRCode, qrCodesListComponent: QrCodesListComponent }
 	) { }
 
-	openQR(event: MouseEvent): void {
+	dismiss(event: MouseEvent): void {
 		this._bottomSheetRef.dismiss();
-		event.preventDefault();
 	}
 
-	copyQR(event: MouseEvent): void {
-		this._bottomSheetRef.dismiss();
-		event.preventDefault();
-	}
-
-	editQR(event) {
+	editQR(event: MouseEvent): void {
 		this._bottomSheetRef.dismiss();
 
 		const editDialogRef = this.dialog.open(QrCodesEditComponent, {
@@ -52,11 +46,11 @@ export class QrCodesListOptionsComponent {
 		});
 	}
 
-	customizeQR(event) {
+	customizeQR(event: MouseEvent): void {
 		this._bottomSheetRef.dismiss();
 	}
 
-	deleteQR(event) {
+	deleteQR(event: MouseEvent): void {
 		this._bottomSheetRef.dismiss();
 		this.dialog.open(InfoDialogComponent, {
 			width: '250px',

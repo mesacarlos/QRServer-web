@@ -8,6 +8,8 @@ import { IndexComponent } from './index/index.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { QrCodesListComponent } from './qr-codes-list/qr-codes-list.component';
+import { QrcodesCustomizeComponent } from './qrcodes-customize/qrcodes-customize.component';
+import { QrcodesStatsComponent } from './qrcodes-stats/qrcodes-stats.component';
 import { RegisterComponent } from './register/register.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 
@@ -22,6 +24,8 @@ const routes: Routes = [
 	{ path: 'logout', component: LogoutComponent },
 	{ path: 'account', component: AccountComponent, canActivate: [LoggedInGuard] },
 	{ path: 'qrcodes', component: QrCodesListComponent, canActivate: [LoggedInGuard] },
+	{ path: 'qrcodes/:id/stats', component: QrcodesStatsComponent, canActivate: [LoggedInGuard] },
+	{ path: 'qrcodes/:id/customize', component: QrcodesCustomizeComponent, canActivate: [LoggedInGuard] },
 	//TODO pagina de 404
 ];
 

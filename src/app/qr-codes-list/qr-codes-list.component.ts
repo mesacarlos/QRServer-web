@@ -58,15 +58,15 @@ export class QrCodesListComponent implements AfterViewInit {
 	//TODO que los puntos suspensidos solo salgan en movil, no en pc (33% width de cada columna o similar)
 
 	ngAfterViewInit(): void {
-		this.dialog.open(InfoDialogComponent, {
-			width: '250px',
-			data: { loading: true }
-		});
 		merge(this.paginator.page)
 			.pipe(
 				startWith({}),
 				switchMap(() => {
 					this.isLoadingResults = true;
+					this.dialog.open(InfoDialogComponent, {
+						width: '250px',
+						data: { loading: true }
+					});
 					return this.userService.getLoggedUserQRCodes(this.paginator.pageSize, this.paginator.pageIndex + 1);
 				}),
 				map(data => {

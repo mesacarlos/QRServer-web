@@ -55,6 +55,8 @@ import { QrCodesListOptionsComponent } from './qr-codes-list-options/qr-codes-li
 import { MatBottomSheet, MatBottomSheetModule, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { QrCodesEditComponent } from './qr-codes-edit/qr-codes-edit.component';
 import {ClipboardModule} from '@angular/cdk/clipboard';
+import { QrcodesStatsComponent } from './qrcodes-stats/qrcodes-stats.component';
+import { QrcodesCustomizeComponent } from './qrcodes-customize/qrcodes-customize.component';
 
 @NgModule({
 	declarations: [
@@ -71,6 +73,8 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
 		QrCodesAddComponent,
 		QrCodesListOptionsComponent,
 		QrCodesEditComponent,
+		QrcodesStatsComponent,
+		QrcodesCustomizeComponent,
 	],
 	imports: [
 		BrowserModule,
