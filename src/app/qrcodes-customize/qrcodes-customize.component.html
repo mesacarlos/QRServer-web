@@ -1,1 +1,39 @@
 <h1>Personalizar tu código QR</h1>
+<div class="container">
+    <div class="left">
+        <img src="https://fonts.gstatic.com/s/i/materialicons/account_box/v10/24px.svg" class="qrcodeImage" alt="QR Code">
+        <div class="center">
+            <p>QRCode_id</p>
+            <p>Creado el DD/MM/AAAA</p>
+        </div>
+    </div>
+
+    <div class="right">
+        <p>Selecciona color</p>
+        <p>Color de fondo</p>
+        <p>Selecciona color de los puntos de control</p>
+        <!-- Aviso de que algunos lectores de QR no soportan el cambio de color -->
+
+        <mat-form-field appearance="outline">
+            <mat-label>Estilo de puntos</mat-label>
+            <mat-select [(value)]="selectedDotStyle.valor">
+                <mat-option *ngFor="let dotStyle of dotStyles" [value]="dotStyle.valor">
+                    {{ dotStyle.nombre }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field hintLabel="Entre 32 y 2048" appearance="outline">
+            <mat-label>Tamaño en píxeles</mat-label>
+            <input matInput placeholder="256" type="number" [formControl]="sizeFormControl" [errorStateMatcher]="matcher" autocomplete="off">
+            <span matSuffix>px</span>
+            <mat-error *ngIf="sizeFormControl.hasError('required')">
+                Campo obligatorio
+            </mat-error>
+            <mat-error *ngIf="sizeFormControl.hasError('min') || sizeFormControl.hasError('max')">
+                Debe ser mayor de 32 y menor de 2048
+            </mat-error>
+        </mat-form-field>
+
+        <p>Insertar logotipo</p>
+    </div>
+</div>
