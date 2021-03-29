@@ -21,6 +21,10 @@
     text-align: left;
 }
 
+.downloadBtn {
+    text-align: left;
+}
+
 mat-card {
     margin-bottom: 10px;
 }

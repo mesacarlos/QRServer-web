@@ -3,12 +3,15 @@
     <div class="left">
         <img *ngIf="generatedQRCode?.png_image" [src]="generatedQRCode.png_image" class="qrcodeImage" alt="QR Code">
         <mat-spinner *ngIf="!generatedQRCode?.png_image" class="qrcodeImage"></mat-spinner>
-        <div class="center">
+        <div>
             <p>{{ generatedQRCode?.id }}</p>
             <p>Creado el {{ generatedQRCodeDate?.toLocaleDateString() }}</p>
-            <a mat-icon-button color="primary" aria-label="Descargar" [disabled]="!generatedQRCode?.png_image" matTooltip="Descargar PNG" download="qr_{{ generatedQRCode?.id }}.png" [href]="generatedQRCode?.png_image">
-                <mat-icon>download</mat-icon> Descargar
-            </a>
+            <div class="downloadBtn">
+                <a mat-icon-button color="primary" aria-label="Descargar" [disabled]="!generatedQRCode?.png_image" matTooltip="Descargar PNG" download="qr_{{ generatedQRCode?.id }}.png" [href]="generatedQRCode?.png_image">
+                    <mat-icon>download</mat-icon> Descargar
+                </a>
+            </div>
+
         </div>
     </div>
 

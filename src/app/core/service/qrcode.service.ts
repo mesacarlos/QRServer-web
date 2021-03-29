@@ -27,13 +27,6 @@ export class QRCodeService {
 		let jsonHeader = new HttpHeaders()
 			.set('Content-Type', 'aplication/json')
 			.set("apitoken", localStorage.getItem("api_token"));
-			console.log(Object.assign({},
-				foreground_color === null ? null : { foreground_color },
-				background_color === null ? null : { background_color },
-				dot_style === null ? null : { dot_style },
-				size === null ? null : { size },
-				base64Image === null ? null: { base64Image },
-			))
 		return this.http.post<QRCode>(this.env.API_BASE_URL + "/qrcode/" + id + "/customize", Object.assign({},
 			!foreground_color ? null : { foreground_color },
 			!background_color ? null : { background_color },
