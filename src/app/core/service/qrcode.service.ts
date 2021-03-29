@@ -13,7 +13,17 @@ export class QRCodeService {
 	constructor(private http: HttpClient) {
 	}
 
-	public getQRCode(id: string, foreground_color?: string, background_color?: string, dot_style?: string, size?: string): Observable<QRCode> {
+	public getQRCode(id: string): Observable<QRCode> {
+		let jsonHeader = new HttpHeaders()
+			.set('Content-Type', 'aplication/json')
+			.set("apitoken", localStorage.getItem("api_token"));
+		return this.http.get<QRCode>(this.env.API_BASE_URL + "/qrcode/" + id, {
+			headers: jsonHeader,
+		});
+		
+	}
+
+	public customizeQRCode(id: string, foreground_color?: string, background_color?: string, dot_style?: string, size?: string, base64Image?: string): Observable<QRCode> {
 		let jsonHeader = new HttpHeaders()
 			.set('Content-Type', 'aplication/json')
 			.set("apitoken", localStorage.getItem("api_token"));
@@ -22,15 +32,16 @@ export class QRCodeService {
 				background_color === null ? null : { background_color },
 				dot_style === null ? null : { dot_style },
 				size === null ? null : { size },
+				base64Image === null ? null: { base64Image },
 			))
-		return this.http.get<QRCode>(this.env.API_BASE_URL + "/qrcode/" + id, {
+		return this.http.post<QRCode>(this.env.API_BASE_URL + "/qrcode/" + id + "/customize", Object.assign({},
+			!foreground_color ? null : { foreground_color },
+			!background_color ? null : { background_color },
+			!dot_style ? null : { dot_style },
+			!size ? null : { size },
+			!base64Image ? null : { base64Image }
+		),{
 			headers: jsonHeader,
-			params: Object.assign({},
-				foreground_color === null ? null : { foreground_color },
-				background_color === null ? null : { background_color },
-				dot_style === null ? null : { dot_style },
-				size === null ? null : { size },
-			),
 		});
 		
 	}

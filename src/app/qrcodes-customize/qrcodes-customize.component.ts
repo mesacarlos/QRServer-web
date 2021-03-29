@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FileValidator } from 'ngx-material-file-input';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { QRCode } from '../core/model/qrcode.model';
@@ -21,21 +22,19 @@ import { openSnackBar } from '../core/util/snackBarUtils';
 export class QrcodesCustomizeComponent implements OnInit, OnDestroy {
 	matcher = new FormErrorStateMatcher();
 	foregroundFormControl = new FormControl('', [
-		Validators.required,
 	]);
 	backgroundFormControl = new FormControl('', [
-		Validators.required,
 	]);
 	sizeFormControl = new FormControl(256, [
 		Validators.required,
 		Validators.min(32),
 		Validators.max(2048),
-		
 	]);
 
 	generatedQRCode: QRCode;
 	generatedQRCodeDate: Date;
 	selectedDotStyle: NameValuePair = { nombre: 'Estándar', valor: 'square' };
+	selectedReadedFile: string; //Base64 image
 	dotStyles: NameValuePair[] = [
 		{ nombre: 'Estándar', valor: 'square' },
 		{ nombre: 'Puntos', valor: 'dot' },
@@ -52,7 +51,7 @@ export class QrcodesCustomizeComponent implements OnInit, OnDestroy {
 		private dialog: MatDialog,
 		private qrCodesService: QRCodeService,
 		private sanitizer: DomSanitizer,
-		private router: Router
+		private router: Router,
 	) { }
 
 	ngOnInit(): void {
@@ -62,18 +61,18 @@ export class QrcodesCustomizeComponent implements OnInit, OnDestroy {
 		}
 
 		//Metodo a llamar cuando el usuario modifique un valor, para regenerar el QR
-		this.foregroundFormControl.valueChanges.subscribe(() => this.modelChanged.next())
-		this.backgroundFormControl.valueChanges.subscribe(() => this.modelChanged.next())
-		this.sizeFormControl.valueChanges.subscribe(() => this.modelChanged.next())
+		this.foregroundFormControl.valueChanges.subscribe(() => this.modelChanged.next());
+		this.backgroundFormControl.valueChanges.subscribe(() => this.modelChanged.next());
+		this.sizeFormControl.valueChanges.subscribe(() => this.modelChanged.next());
 		//Cargamos info del QR
 		this.generateQRCode();
-		
+
 		//Suscriptor que llamará a la API con cierto delay tras modificar un campo
 		this.subscription = this.modelChanged.pipe(
 			debounceTime(this.debounceTime),
-			).subscribe(() => {
-				this.generateQRCode();
-			}
+		).subscribe(() => {
+			this.generateQRCode();
+		}
 		);
 	}
 
@@ -82,14 +81,14 @@ export class QrcodesCustomizeComponent implements OnInit, OnDestroy {
 	}
 
 	generateQRCode() {
-		this.qrCodesService.getQRCode(this.route.snapshot.params.id,
-			this.foregroundFormControl.value,
-			this.backgroundFormControl.value,
+		this.qrCodesService.customizeQRCode(this.route.snapshot.params.id,
+			this.foregroundFormControl.value.toString(),
+			this.backgroundFormControl.value.toString(),
 			this.selectedDotStyle.valor,
-			this.sizeFormControl.value
+			this.sizeFormControl.value,
+			this.selectedReadedFile?.split(',')[1],
 		).subscribe({
 			next: (r) => {
-				console.log(r);
 				this.generatedQRCode = r;
 				this.generatedQRCodeDate = new Date(r.created_at);
 				this.generatedQRCode.png_image = this.sanitizer.bypassSecurityTrustResourceUrl(r.png_image + "");
@@ -108,6 +107,20 @@ export class QrcodesCustomizeComponent implements OnInit, OnDestroy {
 				console.log("Error creating QR Code:", err);
 			}
 		});
+	}
+
+	fileChanged(evt) {
+		try {
+			let fileReader = new FileReader();
+			fileReader.onload = (e) => {
+				this.selectedReadedFile = fileReader.result.toString();
+				this.generateQRCode();
+			}
+			fileReader.readAsDataURL(evt.target.files[0]);
+		} catch (err) {
+			this.selectedReadedFile = "";
+		}
+
 	}
 
 }

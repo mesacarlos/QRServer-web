@@ -4,7 +4,7 @@
         <img *ngIf="generatedQRCode?.png_image" [src]="generatedQRCode.png_image" class="qrcodeImage" alt="QR Code">
         <mat-spinner *ngIf="!generatedQRCode?.png_image" class="qrcodeImage"></mat-spinner>
         <div class="center">
-            <p>QRCode_id</p>
+            <p>{{ generatedQRCode?.id }}</p>
             <p>Creado el {{ generatedQRCodeDate?.toLocaleDateString() }}</p>
             <a mat-icon-button color="primary" aria-label="Descargar" [disabled]="!generatedQRCode?.png_image" matTooltip="Descargar PNG" download="qr_{{ generatedQRCode?.id }}.png" [href]="generatedQRCode?.png_image">
                 <mat-icon>download</mat-icon> Descargar
@@ -64,7 +64,10 @@
             <mat-card-title>Logotipo</mat-card-title>
 
             <mat-card-content>
-
+                <mat-form-field>
+                    <ngx-mat-file-input placeholder="Seleccionar fichero PNG" [accept]="'.png'" (change)="fileChanged($event)"></ngx-mat-file-input>
+                    <mat-icon matSuffix>folder</mat-icon>
+                </mat-form-field>
             </mat-card-content>
         </mat-card>
     </div>

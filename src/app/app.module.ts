@@ -58,6 +58,7 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
 import { QrcodesStatsComponent } from './qrcodes-stats/qrcodes-stats.component';
 import { QrcodesCustomizeComponent } from './qrcodes-customize/qrcodes-customize.component';
 import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
 
 @NgModule({
 	declarations: [
@@ -117,7 +118,8 @@ import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } fro
 		MatBottomSheetModule,
 		FlexLayoutModule,
 		ClipboardModule,
-		NgxMatColorPickerModule
+		NgxMatColorPickerModule,
+		MaterialFileInputModule
 	],
 	providers: [
 		LoggedInGuard,
