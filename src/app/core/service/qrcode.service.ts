@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { QRCode } from "../model/qrcode.model";
+import { QRCodeStats } from "../model/qrcodeStats";
 
 @Injectable({
 	providedIn: "root"
@@ -20,7 +21,7 @@ export class QRCodeService {
 		return this.http.get<QRCode>(this.env.API_BASE_URL + "/qrcode/" + id, {
 			headers: jsonHeader,
 		});
-		
+
 	}
 
 	public customizeQRCode(id: string, foreground_color?: string, background_color?: string, dot_style?: string, size?: string, base64Image?: string): Observable<QRCode> {
@@ -33,10 +34,10 @@ export class QRCodeService {
 			!dot_style ? null : { dot_style },
 			!size ? null : { size },
 			!base64Image ? null : { base64Image }
-		),{
+		), {
 			headers: jsonHeader,
 		});
-		
+
 	}
 
 	public createQRCode(id: string, destination_url: string): Observable<QRCode> {
@@ -78,5 +79,14 @@ export class QRCodeService {
 		});
 	}
 
+	public getStats(qrCodeId: string, options?: {start_timestamp?: string, end_timestamp?: string}): Observable<QRCodeStats> {
+		let jsonHeader = new HttpHeaders()
+			.set('Content-Type', 'aplication/json')
+			.set("apitoken", localStorage.getItem("api_token"));
+		return this.http.get<QRCodeStats>(this.env.API_BASE_URL + "/qrcode/" + qrCodeId + "/stats", {
+			headers: jsonHeader,
+			params: options
+		});
+	}
 
 }

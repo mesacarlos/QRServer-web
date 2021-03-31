@@ -1,11 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ThemePalette } from '@angular/material/core';
-import { MatDialog } from '@angular/material/dialog';
+import { FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FileValidator } from 'ngx-material-file-input';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { QRCode } from '../core/model/qrcode.model';
@@ -48,7 +45,6 @@ export class QrcodesCustomizeComponent implements OnInit, OnDestroy {
 		private route: ActivatedRoute,
 		private sessService: SessionService,
 		private _snackBar: MatSnackBar,
-		private dialog: MatDialog,
 		private qrCodesService: QRCodeService,
 		private sanitizer: DomSanitizer,
 		private router: Router,

@@ -1,0 +1,15 @@
+mat-card {
+    margin-bottom: 20px;
+    /* Estas 3 movidas de abajo son porque el ngx chart ta mal hecho basicamente y se sale del mat card*/
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: visible !important;
+}
+
+.datePicker {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 30px;
+}

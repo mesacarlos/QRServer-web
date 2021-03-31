@@ -54,9 +54,6 @@ export class QrCodesListComponent implements AfterViewInit {
 		private sanitizer: DomSanitizer
 	) { }
 
-	//TODO Los qr expandibles al hacer click (ejemplo en la api)
-	//TODO que los puntos suspensidos solo salgan en movil, no en pc (33% width de cada columna o similar)
-
 	ngAfterViewInit(): void {
 		merge(this.paginator.page)
 			.pipe(
@@ -73,6 +70,10 @@ export class QrCodesListComponent implements AfterViewInit {
 					this.isLoadingResults = false;
 					this.dialog.closeAll();
 					this.resultsLength = data.totalItems;
+					data.items.forEach(item => {
+						item.created_at = new Date(item.created_at);
+						item.updated_at = new Date(item.updated_at);
+					})
 					return data.items;
 				}),
 				catchError((err) => {

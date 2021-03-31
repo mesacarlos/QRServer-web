@@ -43,15 +43,15 @@
                         <mat-spinner *ngIf="!element.png_image"></mat-spinner>
                         <div class="qrlist-element-details">
                             <p>
-                                <span>Aquí tienes tu QR</span>
+                                <span>Creado el {{ element.created_at.toLocaleDateString() }} a las {{ element.created_at.toLocaleTimeString() }}</span>
+                            </p>
+                            <p>
+                                <span>Actualizado: {{ element.updated_at.toLocaleDateString() }} a las {{ element.updated_at.toLocaleTimeString() }}</span>
                             </p>
                             <p>
                                 <a mat-icon-button color="primary" aria-label="Descargar" [disabled]="!element.png_image" matTooltip="Descargar PNG" download="qr_{{ element.id }}.png" [href]="element.png_image">
                                     <mat-icon>download</mat-icon> Descargar
                                 </a>
-                            </p>
-                            <p>
-                                <mat-icon style="vertical-align: middle;">assessment</mat-icon> 100 (ultimo mes)
                             </p>
                         </div>
                     </div>

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -59,6 +59,8 @@ import { QrcodesStatsComponent } from './qrcodes-stats/qrcodes-stats.component';
 import { QrcodesCustomizeComponent } from './qrcodes-customize/qrcodes-customize.component';
 import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
+import { MatNativeDateModule } from '@angular/material/core';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
 	declarations: [
@@ -90,6 +92,7 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
 		MatInputModule,
 		MatAutocompleteModule,
 		MatDatepickerModule,
+		MatNativeDateModule,
 		MatFormFieldModule,
 		MatRadioModule,
 		MatSelectModule,
@@ -119,13 +122,15 @@ import { MaterialFileInputModule } from 'ngx-material-file-input';
 		FlexLayoutModule,
 		ClipboardModule,
 		NgxMatColorPickerModule,
-		MaterialFileInputModule
+		MaterialFileInputModule,
+		NgxChartsModule
 	],
 	providers: [
 		LoggedInGuard,
 		NotLoggedInGuard,
 		{ provide: MatPaginatorIntl, useValue: getSpanishPaginatorIntl() },
 		{ provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS },
+		{ provide: LOCALE_ID, useValue: 'es-ES' },
 		SlicePipe
 	],
 	bootstrap: [AppComponent]

@@ -1,1 +1,65 @@
-<p>qrcodes-stats works!</p>
+<h1>Estadísticas de tu código QR</h1>
+<div class="container">
+    <mat-card>
+        <mat-card-title>Seleccion de rango de fechas</mat-card-title>
+        <mat-card-subtitle></mat-card-subtitle>
+        <mat-card-content>
+
+            <mat-form-field appearance="outline" class="datePicker">
+                <mat-label>Selecciona un rango de fechas</mat-label>
+                <mat-date-range-input [rangePicker]="rangePicker" [formGroup]="dateRangePicker" [min]="qrCode?.created_at" [max]="maxDate" disabled>
+                    <input matStartDate formControlName="start" placeholder="Dia de inicio">
+                    <input matEndDate formControlName="end" placeholder="Dia de fin">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="rangePicker"></mat-datepicker-toggle>
+                <mat-date-range-picker #rangePicker disabled="false">
+                    <mat-date-range-picker-actions>
+                        <button mat-button matDateRangePickerCancel>Cancelar</button>
+                        <button mat-raised-button color="primary" matDateRangePickerApply (click)="setupStats()">Aceptar</button>
+                    </mat-date-range-picker-actions>
+                </mat-date-range-picker>
+                <mat-hint>Pulsa el icono del calendario para seleccionar las fechas</mat-hint>
+            </mat-form-field>
+
+            <p>
+                Accesos a tu código QR desde su creación el {{ qrCode?.created_at.toLocaleDateString() }} a las {{ qrCode?.created_at.toLocaleTimeString() }}: <strong>{{
+					qrCodeStatsFromCreationDate?.total_clicks}}</strong>
+            </p>
+            <p>
+                Accesos a tu código QR en el rango de fechas indicado: <strong>{{ qrCodeStats?.total_clicks }}</strong>
+            </p>
+        </mat-card-content>
+    </mat-card>
+    <mat-card>
+        <mat-card-title>Navegadores mas utilizados</mat-card-title>
+        <mat-card-subtitle *ngIf="mostUsedBrowser?.length == 0">No hay datos</mat-card-subtitle>
+        <mat-card-content *ngIf="mostUsedBrowser?.length > 0">
+            <ngx-charts-bar-horizontal [results]="mostUsedBrowser" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [xAxisLabel]="xAxisLabel">
+            </ngx-charts-bar-horizontal>
+        </mat-card-content>
+    </mat-card>
+    <mat-card>
+        <mat-card-title>Sistemas operativos mas utilizados</mat-card-title>
+        <mat-card-subtitle *ngIf="mostUsedBrowser?.length == 0">No hay datos</mat-card-subtitle>
+        <mat-card-content *ngIf="mostUsedBrowser?.length > 0">
+            <ngx-charts-bar-horizontal [results]="mostUsedOS" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [xAxisLabel]="xAxisLabel">
+            </ngx-charts-bar-horizontal>
+        </mat-card-content>
+    </mat-card>
+    <mat-card>
+        <mat-card-title>Idiomas mas utilizados</mat-card-title>
+        <mat-card-subtitle *ngIf="mostUsedBrowser?.length == 0">No hay datos</mat-card-subtitle>
+        <mat-card-content *ngIf="mostUsedBrowser?.length > 0">
+            <ngx-charts-bar-horizontal [results]="mostUsedLang" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [xAxisLabel]="xAxisLabel">
+            </ngx-charts-bar-horizontal>
+        </mat-card-content>
+    </mat-card>
+    <mat-card>
+        <mat-card-title>Tipos de dispositivos mas utilizados</mat-card-title>
+        <mat-card-subtitle *ngIf="mostUsedBrowser?.length == 0">No hay datos</mat-card-subtitle>
+        <mat-card-content *ngIf="mostUsedBrowser?.length > 0">
+            <ngx-charts-bar-horizontal [results]="mostUsedDevice" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [xAxisLabel]="xAxisLabel">
+            </ngx-charts-bar-horizontal>
+        </mat-card-content>
+    </mat-card>
+</div>
