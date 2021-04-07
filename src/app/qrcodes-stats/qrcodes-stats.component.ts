@@ -86,11 +86,14 @@ export class QrcodesStatsComponent implements OnInit {
 		});
 	}
 
+	///
+	/// VARIABLES Y FUNCIONES PARA ESTADISTICAS EN EL RANGO DE TIEMPO ESPECIFICADO
+	///
 	mostUsedBrowser: NameValue[];
 	mostUsedOS: NameValue[];
 	mostUsedLang: NameValue[];
 	mostUsedDevice: NameValue[];
-	// options
+	// Charts options
 	showXAxis: boolean = true;
 	showYAxis: boolean = true;
 	gradient: boolean = true;
@@ -104,7 +107,8 @@ export class QrcodesStatsComponent implements OnInit {
 		console.log(this.dateRangePicker.value.start, this.dateRangePicker.value.end)
 		this.qrCodesService.getStats(this.route.snapshot.params.id, {
 			start_timestamp: Math.ceil(this.dateRangePicker.value.start?.getTime() / 1000).toString(),
-			end_timestamp: Math.ceil(this.dateRangePicker.value.end?.getTime() / 1000).toString(),
+			//Sumamos 86400 para obtener dia siguiente
+			end_timestamp: (Math.ceil(this.dateRangePicker.value.end?.getTime() / 1000) + 86400).toString(),
 		}).subscribe({
 			next: r => {
 				this.qrCodeStats = r;
