@@ -99,6 +99,9 @@ export class QrcodesStatsComponent implements OnInit {
 	gradient: boolean = true;
 	showXAxisLabel: boolean = true;
 	xAxisLabel: string = "Porcentaje";
+	colorScheme = {
+		domain: ['#72d3e8', '#98f590', '#f7869c', '#C7B42C', '#f6f7d7']
+	};
 	setupStats() {
 		this.dialog.open(InfoDialogComponent, {
 			width: '250px',
@@ -114,16 +117,16 @@ export class QrcodesStatsComponent implements OnInit {
 				this.qrCodeStats = r;
 
 				this.mostUsedBrowser = [];
-				r.top_browser.forEach(elem => this.mostUsedBrowser.push({name: elem.access_browser, value: elem.total}));
+				r.top_browser.forEach(elem => this.mostUsedBrowser.push({ name: elem.access_browser, value: elem.total }));
 
 				this.mostUsedOS = [];
-				r.top_os.forEach(elem => this.mostUsedOS.push({name: elem.access_os, value: elem.total}));
+				r.top_os.forEach(elem => this.mostUsedOS.push({ name: elem.access_os, value: elem.total }));
 
 				this.mostUsedLang = [];
-				r.top_locale.forEach(elem => this.mostUsedLang.push({name: elem.access_language, value: elem.total}));
+				r.top_locale.forEach(elem => this.mostUsedLang.push({ name: elem.access_language, value: elem.total }));
 
 				this.mostUsedDevice = [];
-				r.top_device.forEach(elem => this.mostUsedDevice.push({name: elem.access_device, value: elem.total}));
+				r.top_device.forEach(elem => this.mostUsedDevice.push({ name: elem.access_device, value: elem.total }));
 
 				if (this.qrCode != null && this.qrCodeStats != null && this.qrCodeStatsFromCreationDate != null) this.dialog.closeAll();
 

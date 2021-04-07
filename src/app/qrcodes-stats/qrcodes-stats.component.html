@@ -34,7 +34,7 @@
         <mat-card-title>Navegadores mas utilizados</mat-card-title>
         <mat-card-subtitle *ngIf="mostUsedBrowser?.length == 0">No hay datos</mat-card-subtitle>
         <mat-card-content *ngIf="mostUsedBrowser?.length > 0">
-            <ngx-charts-bar-horizontal [results]="mostUsedBrowser" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [xAxisLabel]="xAxisLabel">
+            <ngx-charts-bar-horizontal [results]="mostUsedBrowser" [gradient]="gradient" [scheme]="colorScheme" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [xAxisLabel]="xAxisLabel">
             </ngx-charts-bar-horizontal>
         </mat-card-content>
     </mat-card>
@@ -42,7 +42,7 @@
         <mat-card-title>Sistemas operativos mas utilizados</mat-card-title>
         <mat-card-subtitle *ngIf="mostUsedBrowser?.length == 0">No hay datos</mat-card-subtitle>
         <mat-card-content *ngIf="mostUsedBrowser?.length > 0">
-            <ngx-charts-bar-horizontal [results]="mostUsedOS" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [xAxisLabel]="xAxisLabel">
+            <ngx-charts-bar-horizontal [results]="mostUsedOS" [gradient]="gradient" [scheme]="colorScheme" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [xAxisLabel]="xAxisLabel">
             </ngx-charts-bar-horizontal>
         </mat-card-content>
     </mat-card>
@@ -50,7 +50,7 @@
         <mat-card-title>Idiomas mas utilizados</mat-card-title>
         <mat-card-subtitle *ngIf="mostUsedBrowser?.length == 0">No hay datos</mat-card-subtitle>
         <mat-card-content *ngIf="mostUsedBrowser?.length > 0">
-            <ngx-charts-bar-horizontal [results]="mostUsedLang" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [xAxisLabel]="xAxisLabel">
+            <ngx-charts-bar-horizontal [results]="mostUsedLang" [gradient]="gradient" [scheme]="colorScheme" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [xAxisLabel]="xAxisLabel">
             </ngx-charts-bar-horizontal>
         </mat-card-content>
     </mat-card>
@@ -58,7 +58,7 @@
         <mat-card-title>Tipos de dispositivos mas utilizados</mat-card-title>
         <mat-card-subtitle *ngIf="mostUsedBrowser?.length == 0">No hay datos</mat-card-subtitle>
         <mat-card-content *ngIf="mostUsedBrowser?.length > 0">
-            <ngx-charts-bar-horizontal [results]="mostUsedDevice" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [xAxisLabel]="xAxisLabel">
+            <ngx-charts-bar-horizontal [results]="mostUsedDevice" [gradient]="gradient" [scheme]="colorScheme" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel" [xAxisLabel]="xAxisLabel">
             </ngx-charts-bar-horizontal>
         </mat-card-content>
     </mat-card>

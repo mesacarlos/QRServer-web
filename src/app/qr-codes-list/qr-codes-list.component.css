@@ -35,11 +35,11 @@ tr.qrlist-detail-row {
 }
 
 tr.qrlist-element-row:not(.qrlist-expanded-row):hover {
-    background: whitesmoke;
+    background: rgb(77, 77, 77);
 }
 
 tr.qrlist-element-row:not(.qrlist-expanded-row):active {
-    background: #efefef;
+    background: rgb(77, 77, 77);
 }
 
 .qrlist-element-row td {
