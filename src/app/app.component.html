@@ -33,12 +33,12 @@
 					<mat-icon>menu</mat-icon>
 				</button>
             </div>
-            <a routerLink="/" routerLinkActive="active" class="webTitle">TusCódigosQR</a>
+            <a routerLink="/" class="webTitle">TusCódigosQR</a>
             <div fxShow="true" fxHide.lt-md="true" *ngIf="sessService.lastIsLoggedInResponse">
                 &nbsp; &nbsp; &nbsp;
-                <a mat-button routerLink="/qrcodes">Tus códigos QR</a>
-                <a mat-button routerLink="/account">Cuenta</a>
-                <a mat-button routerLink="/logout">Cerrar sesión</a>
+                <a mat-button routerLink="/qrcodes" routerLinkActive="active-link">Tus códigos QR</a>
+                <a mat-button routerLink="/account" routerLinkActive="active-link">Cuenta</a>
+                <a mat-button routerLink="/logout" routerLinkActive="active-link">Cerrar sesión</a>
             </div>
 
             <!-- Inicio Spacer central -->
@@ -46,7 +46,7 @@
             <!-- Fin Spacer central -->
 
             <div fxShow="true" fxHide.lt-md="true" *ngIf="!sessService.lastIsLoggedInResponse">
-                <a mat-button routerLink="/login">Iniciar sesión</a>
+                <a mat-button routerLink="/login" routerLinkActive="active-link">Iniciar sesión</a>
                 <a mat-raised-button routerLink="/register">Regístrate</a>
             </div>
         </mat-toolbar>

@@ -14,6 +14,10 @@
     margin-left: auto;
 }
 
+.active-link {
+    background-color: #799bac;
+}
+
 @media (min-width: 768px) {
     .container {
         width: 750px;
