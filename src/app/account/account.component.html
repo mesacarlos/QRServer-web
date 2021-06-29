@@ -33,7 +33,7 @@
                         <mat-form-field class="form-field">
                             <mat-label>Nombre de usuario</mat-label>
                             <input matInput type="text" autocomplete="off" [formControl]="usernameEditFormControl" [errorStateMatcher]="matcher">
-                            <mat-hint align="end">{{usernameEditFormControl.value.length}} / 24</mat-hint>
+                            <mat-hint align="end">{{usernameEditFormControl.value?.length}} / 24</mat-hint>
                             <mat-error *ngIf="usernameEditFormControl.hasError('email')">
                                 Introduce un nombre de usuario valido
                             </mat-error>
