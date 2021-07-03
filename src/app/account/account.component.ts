@@ -29,22 +29,7 @@ export class AccountComponent implements OnInit {
 		private router: Router
 	) { }
 	ngOnInit(): void {
-		this.dialog.open(InfoDialogComponent, {
-			width: '250px',
-			data: { loading: true }
-		});
-		this.userService.getLoggedUser().subscribe({
-			next: (r: User) => {
-				this.dialog.closeAll();
-				this.userObj = r;
-				this.userCreatedDate = new Date(this.userObj?.created_at);
-				this.userUpdatedDate = new Date(this.userObj?.updated_at);
-				console.log(r);
-			},
-			error: (err) => {
-				openSnackBar(this._snackBar, "Error obteniendo datos del servidor: " + err.message, "Cerrar", 10000);
-			}
-		});
+		this.getUserInfo();
 	}
 
 	matcher = new FormErrorStateMatcher();
@@ -65,6 +50,24 @@ export class AccountComponent implements OnInit {
 		Validators.maxLength(64),
 	]);
 
+	getUserInfo(): void {
+		this.dialog.open(InfoDialogComponent, {
+			width: '250px',
+			data: { loading: true }
+		});
+		this.userService.getLoggedUser().subscribe({
+			next: (r: User) => {
+				this.dialog.closeAll();
+				this.userObj = r;
+				this.userCreatedDate = new Date(this.userObj?.created_at);
+				this.userUpdatedDate = new Date(this.userObj?.updated_at);
+			},
+			error: (err) => {
+				openSnackBar(this._snackBar, "Error obteniendo datos del servidor: " + err.message, "Cerrar", 10000);
+			}
+		});
+	}
+
 	clickEditAccount() {
 		if (this.usernameEditFormControl.errors != null || this.emailEditFormControl.errors != null
 			|| this.passwordEditFormControl.errors != null || this.passwordConfirmEditFormControl.errors != null)
@@ -84,14 +87,15 @@ export class AccountComponent implements OnInit {
 			next: (r) => {
 				//TODO Probar si mandamos un email o algo que no pase el validador del back que error devuelve
 				this.dialog.closeAll();
+				this.getUserInfo();
 				openSnackBar(this._snackBar, "Cuenta actualizada correctamente", "Cerrar", 10000);
 				this.currentTabIndex = 0;
 
 				//Clear the form
-				this.usernameEditFormControl.reset();
-				this.emailEditFormControl.reset();
-				this.passwordEditFormControl.reset();
-				this.passwordConfirmEditFormControl.reset();
+				this.usernameEditFormControl.setValue("");
+				this.emailEditFormControl.setValue("");
+				this.passwordEditFormControl.setValue("");
+				this.passwordConfirmEditFormControl.setValue("");
 			},
 			error: (err) => {
 				this.dialog.closeAll();

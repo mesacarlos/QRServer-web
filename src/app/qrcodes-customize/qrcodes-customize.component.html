@@ -6,11 +6,14 @@
         <div>
             <p>{{ generatedQRCode?.id }}</p>
             <p>Creado el {{ generatedQRCodeDate?.toLocaleDateString() }}</p>
+
             <div class="downloadBtn">
                 <a mat-icon-button color="primary" aria-label="Descargar" [disabled]="!generatedQRCode?.png_image" matTooltip="Descargar PNG" download="qr_{{ generatedQRCode?.id }}.png" [href]="generatedQRCode?.png_image">
-                    <mat-icon>download</mat-icon> Descargar
+                    <mat-icon>download</mat-icon>
                 </a>
             </div>
+
+
 
         </div>
     </div>

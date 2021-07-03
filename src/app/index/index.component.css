@@ -1,0 +1,37 @@
+.fullwidth {
+    position: absolute;
+    left: 0;
+}
+
+header {
+    background-color: #07ad9d;
+    color: white;
+    text-align: center;
+    height: 420px;
+    width: 100vw;
+    overflow: hidden;
+}
+
+.header-content {
+    padding-top: 100px;
+    margin: 20px;
+}
+
+main {
+    display: flex;
+    flex-direction: row;
+    margin: 50px 0;
+    width: 50%;
+    min-width: 400px;
+    max-width: 1000px;
+    margin: auto;
+    width: 50%;
+}
+
+.main-elem {
+    display: flex;
+    flex-direction: column;
+    width: 32%;
+    padding-left: 10px;
+    padding-right: 10px;
+}
