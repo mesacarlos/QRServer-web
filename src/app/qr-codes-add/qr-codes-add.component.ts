@@ -39,7 +39,7 @@ export class QrCodesAddComponent {
 				this.dialogRef.close();
 			},
 			error: (err) => {
-				this.dialogRef.close();
+				this.isLoading = false;
 				if (err.status == 422) {
 					if (err.error.id)
 						openSnackBar(this._snackBar, "Error: El ID ya existe o usa caracteres no permitidos", "Cerrar", 20000, 'center', 'bottom');

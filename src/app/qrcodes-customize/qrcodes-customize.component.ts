@@ -67,7 +67,8 @@ export class QrcodesCustomizeComponent implements OnInit, OnDestroy {
 		this.subscription = this.modelChanged.pipe(
 			debounceTime(this.debounceTime),
 		).subscribe(() => {
-			this.generateQRCode();
+			if(this.sizeFormControl.valid)
+				this.generateQRCode();
 		}
 		);
 	}
