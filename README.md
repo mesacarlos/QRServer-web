@@ -1,27 +1,26 @@
-# QrcodesWeb
+# TusCódigosQR
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.2.
+(At the moment this app is only available in Spanish)
 
-## Development server
+TusCódigosQR es una aplicación web que permite la creación de códigos QR dinámicos y mantener un registro de estos. Este repositorio contiene el frontend desarrollado en Angular 11. Para el backend, ver [QRServer-API](https://github.com/mesacarlos/QRServer-API).
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+La aplicación permitirá a los usuarios del sistema registrar una nueva cuenta en el sitio web y, una vez iniciado en sesión, el usuario podrá crear códigos QR, así como direcciones web acortadas cuyo destino sea una tercera dirección web a elección del usuario. Una vez creado, el usuario podrá modificar el destino del código QR sin ser necesaria la modificación de la imagen de código QR.
+Además, la aplicación mostrará información al usuario como el número de accesos, el dispositivo utilizado para acceder al QR, el idioma y el sistema operativo, entre otros. Además, se permitirá personalizar la imagen generada del código QR incluyendo elementos como un logotipo a elección del usuario, el estilo, el tamaño y los colores.
 
-## Code scaffolding
+## Algunas capturas de pantalla
+A continuación se muestran algunas capturas de pantalla de la aplicación
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Listado de QRs
+![listado de QRs](https://i.imgur.com/5LSkw3V.png)
 
-## Build
+### Estadísticas de QR
+![Estadisticas de QR](https://i.imgur.com/OyiujAN.png)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+### Edición de QR
+![Edicion de QR](https://i.imgur.com/NvxqkRU.png)
 
-## Running unit tests
+### Personalización de QR
+![Personalización de QR](https://i.imgur.com/p9LLnNP.png)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Información básica de la cuenta
+![Informacion Basica de la cuenta](https://i.imgur.com/NSbodWp.png)
